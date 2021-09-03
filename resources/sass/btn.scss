@@ -1,0 +1,11 @@
+.btn {
+    &.btn-outline-custom {
+        color: $color-secundary;
+        border: 1px solid $color-secundary;
+
+        &:hover{
+            color: $color-primary;
+            background-color: $color-secundary;
+        }
+    }
+}

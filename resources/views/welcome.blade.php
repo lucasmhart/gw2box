@@ -10,11 +10,8 @@
 
     </head>
     <body>
-
         <div id="app">
-
-            <about-us />
-
+            <nav-bar />
         </div>
 
         <script src="{{ asset('js/app.js') }}"></script>

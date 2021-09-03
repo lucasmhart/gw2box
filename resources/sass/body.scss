@@ -1,0 +1,12 @@
+body {
+    background-image: linear-gradient(to right, #182848, #21345b, #2a4070, #334d85, #3d5a9a, #3d5a9a, #3d5a9a, #3d5a9a, #334d85, #2a4070, #21345b, #182848);
+    color: $color-secundary;
+
+    a {
+        color: $color-secundary;
+
+        &:hover {
+            color: $color-accent;
+        }
+    }
+}
