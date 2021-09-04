@@ -41,8 +41,13 @@
 </template>
 
 <script>
+import routes from '@/mixins/routes'
 export default {
-  mounted() {}
+  mixins:[routes],
+  methods:{
+  },
+  mounted() {
+  }
 };
 </script>
 
