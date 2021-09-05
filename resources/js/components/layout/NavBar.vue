@@ -1,7 +1,7 @@
 <template>
   <div class="container">
     <nav class="navbar navbar-expand-md">
-      <a class="navbar-brand" :href="baseRoute()">GW2Box</a>
+      <a class="navbar-brand" :href="this.routes().baseRoute()">GW2Box</a>
       <button
         class="navbar-toggler"
         type="button"
@@ -46,9 +46,9 @@
 </template>
 
 <script>
-import routes from '@/mixins/routes'
+import mixins from '@/src/mixins/mixins'
 export default {
-  mixins:[routes],
+  mixins:[mixins],
   methods:{
   },
   mounted() {
