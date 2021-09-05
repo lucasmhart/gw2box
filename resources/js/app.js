@@ -7,6 +7,7 @@
 require('./bootstrap');
 
 window.Vue = require('vue').default;
+import Route from "@/src/helpers/Route";
 
 /**
  * The following block of code may be used to automatically register your
@@ -29,4 +30,9 @@ Vue.component('nav-bar', require('./components/layout/NavBar.vue').default);
 
 const app = new Vue({
     el: '#app',
+    data() {
+        return {
+            routes: Route
+        }
+    }
 });
