@@ -12,7 +12,7 @@
     </head>
     <body>
         <div id="app">
-            <nav-bar />
+            <nav-bar></nav-bar>
         </div>
 
         @yield('content')

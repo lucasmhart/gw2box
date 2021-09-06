@@ -36,21 +36,26 @@
         </form>
 
         <ul class="navbar-nav ml-auto">
-          <li class="nav-item active">
-            <a class="nav-link" href="#">Login / Register</a>
+          <li class="nav-item">
+            <a class="nav-link" href="javascript:void(0)" @click="openModalLogin()" >Login / Register</a>
           </li>
         </ul>
       </div>
     </nav>
+    <auth-modal></auth-modal>
   </div>
 </template>
 
 <script>
+import authModal from '@/auth/Modal'
 export default {
+  components: {authModal},
   methods:{
+    openModalLogin() {
+      $('#exampleModal').modal('show')
+    }
   },
   mounted() {
-    console.log(this.$root.routes.baseRoute())
   }
 };
 </script>
