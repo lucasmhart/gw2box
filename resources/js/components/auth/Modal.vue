@@ -1,19 +1,38 @@
 <template>
-  <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div
+    class="modal fade"
+    id="exampleModal"
+    tabindex="-1"
+    role="dialog"
+    aria-labelledby="exampleModalLabel"
+    aria-hidden="true"
+  >
     <div class="modal-dialog" role="document">
       <div class="modal-content">
         <div class="modal-header">
-          <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
-          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <h5 class="modal-title text-center" id="exampleModalLabel">
+            GW2<i class="fas fa-box-open"></i>
+          </h5>
+          <button
+            type="button"
+            class="close"
+            data-dismiss="modal"
+            aria-label="Close"
+          >
             <span aria-hidden="true">&times;</span>
           </button>
         </div>
         <div class="modal-body">
-          ...
+          <form-signin v-show="selected_modal === 'signin'" v-on:changeAuthModal="changeAuthModal($event)"></form-signin>
+          <form-signup v-show="selected_modal === 'signup'"></form-signup>
+          <form-forgot-password v-show="selected_modal === 'forgot_password'"></form-forgot-password>
+          <!-- <div class="text-center">
+            <img src="/img/layout/box.jpg" alt="" class="img-fluid" />
+          </div> -->
         </div>
         <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-          <button type="button" class="btn btn-primary">Save changes</button>
+          <a href="javascript:void(0)">Sign up</a>
+          <button type="submit" class="btn btn-primary">Sign in</button>
         </div>
       </div>
     </div>
@@ -21,13 +40,28 @@
 </template>
 
 <script>
+
+import FormSignin from '@/auth/FormSignIn'
+import FormSignup from '@/auth/FormSignUp'
+import FormForgotPassword from '@/auth/FormForgotPassword'
 export default {
-  methods:{
+  components: {
+    FormSignin,
+    FormSignup,
+    FormForgotPassword
   },
-  mounted() {
-  }
+  data() {
+    return {
+      selected_modal: 'signin'
+    }
+  },
+  methods: {
+    changeAuthModal(modal) {
+      this.selected_modal = modal
+    }
+  },
+  mounted() {}
 };
 </script>
 
-<style scoped>
-</style>
+<style scoped></style>

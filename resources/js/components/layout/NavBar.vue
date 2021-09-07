@@ -1,7 +1,7 @@
 <template>
   <div class="container">
     <nav class="navbar navbar-expand-md">
-      <a class="navbar-brand" :href="this.$root.routes.baseRoute()">GW2Box</a>
+      <a class="navbar-brand" :href="this.$root.routes.baseRoute()">GW2<i class="fas fa-box-open"></i></a>
       <button
         class="navbar-toggler"
         type="button"

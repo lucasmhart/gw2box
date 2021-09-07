@@ -1,5 +1,11 @@
+html,
 body {
-    background-image: linear-gradient(to right, #182848, #21345b, #2a4070, #334d85, #3d5a9a, #3d5a9a, #3d5a9a, #3d5a9a, #334d85, #2a4070, #21345b, #182848);
+    background-image: linear-gradient(to bottom, #182848, #21345b, #2a4070, #334d85, #3d5a9a);
+    background-repeat: no-repeat;
+    height: 100%;
+}
+
+.navbar {
     color: $color-secundary;
 
     a {
