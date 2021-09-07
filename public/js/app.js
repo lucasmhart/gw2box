@@ -2047,6 +2047,22 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 
@@ -2058,12 +2074,39 @@ __webpack_require__.r(__webpack_exports__);
   },
   data: function data() {
     return {
-      selected_modal: 'signin'
+      selected_modal: "signin",
+      secundaryActionForm: "Sign up",
+      primaryActionForm: "Sign in"
     };
   },
   methods: {
-    changeAuthModal: function changeAuthModal(modal) {
+    handleChangeAuthModal: function handleChangeAuthModal(modal) {
       this.selected_modal = modal;
+
+      if (modal == 'forgot_password') {
+        this.secundaryActionForm = 'Sign in';
+      }
+    },
+    handleSecundaryActionForm: function handleSecundaryActionForm() {
+      if (this.selected_modal == "signin") {
+        this.secundaryActionForm = "Sign in";
+        this.selected_modal = "signup";
+      } else if (this.selected_modal == "signup") {
+        this.secundaryActionForm = "Sign up";
+        this.selected_modal = "signin";
+      } else if (this.selected_modal == "forgot_password") {
+        this.secundaryActionForm = "Sign up";
+        this.selected_modal = "signin";
+      }
+    },
+    handlePrimaryActionForm: function handlePrimaryActionForm() {
+      if (this.selected_modal == "signin") {
+        console.log("Action sign in");
+      } else if (this.selected_modal == "signup") {
+        console.log("Action sign up");
+      } else if (this.selected_modal == "forgot_password") {
+        console.log("Action forgot password");
+      }
     }
   },
   mounted: function mounted() {}
@@ -38742,7 +38785,7 @@ var render = function() {
                 ],
                 on: {
                   changeAuthModal: function($event) {
-                    return _vm.changeAuthModal($event)
+                    return _vm.handleChangeAuthModal($event)
                   }
                 }
               }),
@@ -38755,7 +38798,12 @@ var render = function() {
                     value: _vm.selected_modal === "signup",
                     expression: "selected_modal === 'signup'"
                   }
-                ]
+                ],
+                on: {
+                  click: function($event) {
+                    return _vm.changeSecundaryActionForm()
+                  }
+                }
               }),
               _vm._v(" "),
               _c("form-forgot-password", {
@@ -38772,7 +38820,38 @@ var render = function() {
             1
           ),
           _vm._v(" "),
-          _vm._m(1)
+          _c("div", { staticClass: "modal-footer" }, [
+            _c(
+              "a",
+              {
+                attrs: { href: "javascript:void(0)" },
+                on: {
+                  click: function($event) {
+                    return _vm.handleSecundaryActionForm()
+                  }
+                }
+              },
+              [_vm._v(_vm._s(_vm.secundaryActionForm))]
+            ),
+            _vm._v(" "),
+            _c(
+              "button",
+              {
+                staticClass: "btn btn-primary",
+                attrs: { type: "submit" },
+                on: {
+                  click: function($event) {
+                    return _vm.handlePrimaryActionForm()
+                  }
+                }
+              },
+              [
+                _vm._v(
+                  "\n          " + _vm._s(_vm.primaryActionForm) + "\n        "
+                )
+              ]
+            )
+          ])
         ])
       ])
     ]
@@ -38804,20 +38883,6 @@ var staticRenderFns = [
           }
         },
         [_c("span", { attrs: { "aria-hidden": "true" } }, [_vm._v("×")])]
-      )
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "modal-footer" }, [
-      _c("a", { attrs: { href: "javascript:void(0)" } }, [_vm._v("Sign up")]),
-      _vm._v(" "),
-      _c(
-        "button",
-        { staticClass: "btn btn-primary", attrs: { type: "submit" } },
-        [_vm._v("Sign in")]
       )
     ])
   }
