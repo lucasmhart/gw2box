@@ -22,8 +22,17 @@
         placeholder="Password"
       />
       <p class="text-right">
-        <small><a href="javascript:void(0)" @click="set_forgot_password()">Forgot my password</a></small>
+        <small><a href="javascript:void(0)" @click="setAuthModal('forgot_password')">Forgot my password</a></small>
       </p>
+    </div>
+    <div class="text-right">
+      <a href="javascript:void(0)" @click="setAuthModal('signup')">Sign up</a>
+      <button
+        type="button"
+        class="btn btn-primary"
+      >
+        Submit
+      </button>
     </div>
   </form>
 </template>
@@ -31,8 +40,8 @@
 <script>
 export default {
   methods: {
-    set_forgot_password() {
-      this.$emit('changeAuthModal', 'forgot_password')
+    setAuthModal(modal) {
+      this.$emit('changeAuthModal', modal)
     }
   },
   mounted() {}

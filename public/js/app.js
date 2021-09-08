@@ -1863,9 +1863,22 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   props: ['selected_modal'],
-  methods: {},
+  methods: {
+    setAuthModal: function setAuthModal(modal) {
+      this.$emit('changeAuthModal', modal);
+    }
+  },
   mounted: function mounted() {}
 });
 
@@ -1912,10 +1925,19 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   methods: {
-    set_forgot_password: function set_forgot_password() {
-      this.$emit('changeAuthModal', 'forgot_password');
+    setAuthModal: function setAuthModal(modal) {
+      this.$emit('changeAuthModal', modal);
     }
   },
   mounted: function mounted() {}
@@ -1984,9 +2006,32 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   props: ['selected_modal'],
-  methods: {},
+  data: function data() {
+    return {
+      email: null,
+      password: null,
+      password_confirm: null,
+      api_key: null
+    };
+  },
+  methods: {
+    setAuthModal: function setAuthModal(modal) {
+      this.$emit('changeAuthModal', modal);
+    }
+  },
   mounted: function mounted() {}
 });
 
@@ -2052,17 +2097,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 
 
 
@@ -2082,31 +2116,6 @@ __webpack_require__.r(__webpack_exports__);
   methods: {
     handleChangeAuthModal: function handleChangeAuthModal(modal) {
       this.selected_modal = modal;
-
-      if (modal == 'forgot_password') {
-        this.secundaryActionForm = 'Sign in';
-      }
-    },
-    handleSecundaryActionForm: function handleSecundaryActionForm() {
-      if (this.selected_modal == "signin") {
-        this.secundaryActionForm = "Sign in";
-        this.selected_modal = "signup";
-      } else if (this.selected_modal == "signup") {
-        this.secundaryActionForm = "Sign up";
-        this.selected_modal = "signin";
-      } else if (this.selected_modal == "forgot_password") {
-        this.secundaryActionForm = "Sign up";
-        this.selected_modal = "signin";
-      }
-    },
-    handlePrimaryActionForm: function handlePrimaryActionForm() {
-      if (this.selected_modal == "signin") {
-        console.log("Action sign in");
-      } else if (this.selected_modal == "signup") {
-        console.log("Action sign up");
-      } else if (this.selected_modal == "forgot_password") {
-        console.log("Action forgot password");
-      }
     }
   },
   mounted: function mounted() {}
@@ -38498,35 +38507,56 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _vm._m(0)
+  return _c("form", [
+    _vm._m(0),
+    _vm._v(" "),
+    _c("div", { staticClass: "text-right" }, [
+      _c(
+        "a",
+        {
+          attrs: { href: "javascript:void(0)" },
+          on: {
+            click: function($event) {
+              return _vm.setAuthModal("signin")
+            }
+          }
+        },
+        [_vm._v("Sign In")]
+      ),
+      _vm._v(" "),
+      _c(
+        "button",
+        { staticClass: "btn btn-primary", attrs: { type: "button" } },
+        [_vm._v("\n      Submit\n    ")]
+      )
+    ])
+  ])
 }
 var staticRenderFns = [
   function() {
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("form", [
-      _c("div", { staticClass: "form-group" }, [
-        _c("label", { attrs: { for: "exampleInputEmail1" } }, [
-          _vm._v("Email address")
-        ]),
-        _vm._v(" "),
-        _c("input", {
-          staticClass: "form-control",
-          attrs: {
-            type: "email",
-            id: "exampleInputEmail1",
-            "aria-describedby": "emailHelp",
-            placeholder: "Enter email"
-          }
-        }),
-        _vm._v(" "),
-        _c(
-          "small",
-          { staticClass: "form-text text-muted", attrs: { id: "emailHelp" } },
-          [_vm._v("We'll never share your email with anyone else.")]
-        )
-      ])
+    return _c("div", { staticClass: "form-group" }, [
+      _c("label", { attrs: { for: "exampleInputEmail1" } }, [
+        _vm._v("Email address")
+      ]),
+      _vm._v(" "),
+      _c("input", {
+        staticClass: "form-control",
+        attrs: {
+          type: "email",
+          id: "exampleInputEmail1",
+          "aria-describedby": "emailHelp",
+          placeholder: "Enter email"
+        }
+      }),
+      _vm._v(" "),
+      _c(
+        "small",
+        { staticClass: "form-text text-muted", attrs: { id: "emailHelp" } },
+        [_vm._v("We'll never share your email with anyone else.")]
+      )
     ])
   }
 ]
@@ -38577,7 +38607,7 @@ var render = function() {
               attrs: { href: "javascript:void(0)" },
               on: {
                 click: function($event) {
-                  return _vm.set_forgot_password()
+                  return _vm.setAuthModal("forgot_password")
                 }
               }
             },
@@ -38585,6 +38615,27 @@ var render = function() {
           )
         ])
       ])
+    ]),
+    _vm._v(" "),
+    _c("div", { staticClass: "text-right" }, [
+      _c(
+        "a",
+        {
+          attrs: { href: "javascript:void(0)" },
+          on: {
+            click: function($event) {
+              return _vm.setAuthModal("signup")
+            }
+          }
+        },
+        [_vm._v("Sign up")]
+      ),
+      _vm._v(" "),
+      _c(
+        "button",
+        { staticClass: "btn btn-primary", attrs: { type: "button" } },
+        [_vm._v("\n      Submit\n    ")]
+      )
     ])
   ])
 }
@@ -38638,97 +38689,177 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _vm._m(0)
+  return _c("form", [
+    _c("div", { staticClass: "form-group" }, [
+      _c("label", { attrs: { for: "exampleInputEmail1" } }, [
+        _vm._v("Email address")
+      ]),
+      _vm._v(" "),
+      _c("input", {
+        directives: [
+          {
+            name: "model",
+            rawName: "v-model",
+            value: _vm.email,
+            expression: "email"
+          }
+        ],
+        staticClass: "form-control",
+        attrs: {
+          type: "email",
+          name: "email",
+          "aria-describedby": "User email input",
+          placeholder: "Enter email"
+        },
+        domProps: { value: _vm.email },
+        on: {
+          input: function($event) {
+            if ($event.target.composing) {
+              return
+            }
+            _vm.email = $event.target.value
+          }
+        }
+      }),
+      _vm._v(" "),
+      _c(
+        "small",
+        { staticClass: "form-text text-muted", attrs: { id: "emailHelp" } },
+        [_vm._v("We'll never share your email with anyone else.")]
+      )
+    ]),
+    _vm._v(" "),
+    _c("div", { staticClass: "form-group" }, [
+      _c("label", { attrs: { for: "exampleInputPassword1" } }, [
+        _vm._v("Password")
+      ]),
+      _vm._v(" "),
+      _c("input", {
+        directives: [
+          {
+            name: "model",
+            rawName: "v-model",
+            value: _vm.password,
+            expression: "password"
+          }
+        ],
+        staticClass: "form-control",
+        attrs: { type: "password", placeholder: "User password" },
+        domProps: { value: _vm.password },
+        on: {
+          input: function($event) {
+            if ($event.target.composing) {
+              return
+            }
+            _vm.password = $event.target.value
+          }
+        }
+      }),
+      _vm._v(" "),
+      _c("small", { staticClass: "text-danger" }, [
+        _vm._v("for security reasons DO YOU NOT USE YOUR GAME PASSWORD HERE")
+      ])
+    ]),
+    _vm._v(" "),
+    _c("div", { staticClass: "form-group" }, [
+      _c("label", { attrs: { for: "exampleInputPassword1" } }, [
+        _vm._v("Confirm Password")
+      ]),
+      _vm._v(" "),
+      _c("input", {
+        directives: [
+          {
+            name: "model",
+            rawName: "v-model",
+            value: _vm.password_confirm,
+            expression: "password_confirm"
+          }
+        ],
+        staticClass: "form-control",
+        attrs: { type: "password", placeholder: "Confirm password" },
+        domProps: { value: _vm.password_confirm },
+        on: {
+          input: function($event) {
+            if ($event.target.composing) {
+              return
+            }
+            _vm.password_confirm = $event.target.value
+          }
+        }
+      })
+    ]),
+    _vm._v(" "),
+    _c("div", { staticClass: "form-group" }, [
+      _c("label", { attrs: { for: "exampleInputEmail1" } }, [
+        _vm._v("API Key")
+      ]),
+      _vm._v(" "),
+      _c("input", {
+        directives: [
+          {
+            name: "model",
+            rawName: "v-model",
+            value: _vm.api_key,
+            expression: "api_key"
+          }
+        ],
+        staticClass: "form-control",
+        attrs: {
+          type: "email",
+          "aria-describedby": "User API Key",
+          placeholder: "Enter your api key"
+        },
+        domProps: { value: _vm.api_key },
+        on: {
+          input: function($event) {
+            if ($event.target.composing) {
+              return
+            }
+            _vm.api_key = $event.target.value
+          }
+        }
+      }),
+      _vm._v(" "),
+      _vm._m(0),
+      _vm._v(" "),
+      _c("div", { staticClass: "text-right" }, [
+        _c(
+          "a",
+          {
+            attrs: { href: "javascript:void(0)" },
+            on: {
+              click: function($event) {
+                return _vm.setAuthModal("signin")
+              }
+            }
+          },
+          [_vm._v("Sign In")]
+        ),
+        _vm._v(" "),
+        _c(
+          "button",
+          { staticClass: "btn btn-primary", attrs: { type: "button" } },
+          [_vm._v("\n        Submit\n      ")]
+        )
+      ])
+    ])
+  ])
 }
 var staticRenderFns = [
   function() {
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("form", [
-      _c("div", { staticClass: "form-group" }, [
-        _c("label", { attrs: { for: "exampleInputEmail1" } }, [
-          _vm._v("Email address")
+    return _c(
+      "small",
+      { staticClass: "form-text text-muted", attrs: { id: "emailHelp" } },
+      [
+        _c("a", { attrs: { href: "javascript:void(0)" } }, [
+          _vm._v("Click here")
         ]),
-        _vm._v(" "),
-        _c("input", {
-          staticClass: "form-control",
-          attrs: {
-            type: "email",
-            id: "exampleInputEmail1",
-            "aria-describedby": "emailHelp",
-            placeholder: "Enter email"
-          }
-        }),
-        _vm._v(" "),
-        _c(
-          "small",
-          { staticClass: "form-text text-muted", attrs: { id: "emailHelp" } },
-          [_vm._v("We'll never share your email with anyone else.")]
-        )
-      ]),
-      _vm._v(" "),
-      _c("div", { staticClass: "form-group" }, [
-        _c("label", { attrs: { for: "exampleInputPassword1" } }, [
-          _vm._v("Password")
-        ]),
-        _vm._v(" "),
-        _c("input", {
-          staticClass: "form-control",
-          attrs: {
-            type: "password",
-            id: "exampleInputPassword1",
-            placeholder: "Password"
-          }
-        }),
-        _vm._v(" "),
-        _c("small", { staticClass: "text-danger" }, [
-          _vm._v("for security reasons DO YOU NOT USE YOUR GAME PASSWORD HERE")
-        ])
-      ]),
-      _vm._v(" "),
-      _c("div", { staticClass: "form-group" }, [
-        _c("label", { attrs: { for: "exampleInputPassword1" } }, [
-          _vm._v("Confirm Password")
-        ]),
-        _vm._v(" "),
-        _c("input", {
-          staticClass: "form-control",
-          attrs: {
-            type: "password",
-            id: "exampleInputPassword1",
-            placeholder: "Password"
-          }
-        })
-      ]),
-      _vm._v(" "),
-      _c("div", { staticClass: "form-group" }, [
-        _c("label", { attrs: { for: "exampleInputEmail1" } }, [
-          _vm._v("API Key")
-        ]),
-        _vm._v(" "),
-        _c("input", {
-          staticClass: "form-control",
-          attrs: {
-            type: "email",
-            id: "exampleInputEmail1",
-            "aria-describedby": "emailHelp",
-            placeholder: "Enter your api key"
-          }
-        }),
-        _vm._v(" "),
-        _c(
-          "small",
-          { staticClass: "form-text text-muted", attrs: { id: "emailHelp" } },
-          [
-            _c("a", { attrs: { href: "javascript:void(0)" } }, [
-              _vm._v("Click here")
-            ]),
-            _vm._v(" to generate your key")
-          ]
-        )
-      ])
-    ])
+        _vm._v(" to generate your key\n    ")
+      ]
+    )
   }
 ]
 render._withStripped = true
@@ -38800,8 +38931,8 @@ var render = function() {
                   }
                 ],
                 on: {
-                  click: function($event) {
-                    return _vm.changeSecundaryActionForm()
+                  changeAuthModal: function($event) {
+                    return _vm.handleChangeAuthModal($event)
                   }
                 }
               }),
@@ -38814,44 +38945,16 @@ var render = function() {
                     value: _vm.selected_modal === "forgot_password",
                     expression: "selected_modal === 'forgot_password'"
                   }
-                ]
+                ],
+                on: {
+                  changeAuthModal: function($event) {
+                    return _vm.handleChangeAuthModal($event)
+                  }
+                }
               })
             ],
             1
-          ),
-          _vm._v(" "),
-          _c("div", { staticClass: "modal-footer" }, [
-            _c(
-              "a",
-              {
-                attrs: { href: "javascript:void(0)" },
-                on: {
-                  click: function($event) {
-                    return _vm.handleSecundaryActionForm()
-                  }
-                }
-              },
-              [_vm._v(_vm._s(_vm.secundaryActionForm))]
-            ),
-            _vm._v(" "),
-            _c(
-              "button",
-              {
-                staticClass: "btn btn-primary",
-                attrs: { type: "submit" },
-                on: {
-                  click: function($event) {
-                    return _vm.handlePrimaryActionForm()
-                  }
-                }
-              },
-              [
-                _vm._v(
-                  "\n          " + _vm._s(_vm.primaryActionForm) + "\n        "
-                )
-              ]
-            )
-          ])
+          )
         ])
       ])
     ]

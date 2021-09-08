@@ -29,26 +29,15 @@
           ></form-signin>
           <form-signup
             v-show="selected_modal === 'signup'"
-            @click="changeSecundaryActionForm()"
+            v-on:changeAuthModal="handleChangeAuthModal($event)"
           ></form-signup>
           <form-forgot-password
             v-show="selected_modal === 'forgot_password'"
+            v-on:changeAuthModal="handleChangeAuthModal($event)"
           ></form-forgot-password>
           <!-- <div class="text-center">
             <img src="/img/layout/box.jpg" alt="" class="img-fluid" />
           </div> -->
-        </div>
-        <div class="modal-footer">
-          <a href="javascript:void(0)" @click="handleSecundaryActionForm()">{{
-            secundaryActionForm
-          }}</a>
-          <button
-            type="submit"
-            class="btn btn-primary"
-            @click="handlePrimaryActionForm()"
-          >
-            {{ primaryActionForm }}
-          </button>
         </div>
       </div>
     </div>
@@ -75,31 +64,7 @@ export default {
   methods: {
     handleChangeAuthModal(modal) {
       this.selected_modal = modal;
-      if (modal == 'forgot_password') {
-        this.secundaryActionForm = 'Sign in'
-      }
     },
-    handleSecundaryActionForm() {
-      if (this.selected_modal == "signin") {
-        this.secundaryActionForm = "Sign in"
-        this.selected_modal = "signup"
-      } else if (this.selected_modal == "signup") {
-        this.secundaryActionForm = "Sign up"
-        this.selected_modal = "signin"
-      } else if (this.selected_modal == "forgot_password") {
-        this.secundaryActionForm = "Sign up"
-        this.selected_modal = "signin"
-      }
-    },
-    handlePrimaryActionForm() {
-      if (this.selected_modal == "signin") {
-        console.log("Action sign in");
-      } else if (this.selected_modal == "signup") {
-        console.log("Action sign up");
-      } else if (this.selected_modal == "forgot_password") {
-        console.log("Action forgot password");
-      }
-    }
   },
   mounted() {}
 };

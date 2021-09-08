@@ -13,13 +13,26 @@
         >We'll never share your email with anyone else.</small
       >
     </div>
+    <div class="text-right">
+      <a href="javascript:void(0)" @click="setAuthModal('signin')">Sign In</a>
+      <button
+        type="button"
+        class="btn btn-primary"
+      >
+        Submit
+      </button>
+    </div>
   </form>
 </template>
 
 <script>
 export default {
   props: ['selected_modal'],
-  methods: {},
+  methods: {
+    setAuthModal(modal) {
+      this.$emit('changeAuthModal', modal)
+    }
+  },
   mounted() {}
 };
 </script>

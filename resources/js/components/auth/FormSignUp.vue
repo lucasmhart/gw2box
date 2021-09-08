@@ -4,10 +4,11 @@
       <label for="exampleInputEmail1">Email address</label>
       <input
         type="email"
+        name="email"
         class="form-control"
-        id="exampleInputEmail1"
-        aria-describedby="emailHelp"
+        aria-describedby="User email input"
         placeholder="Enter email"
+        v-model="email"
       />
       <small id="emailHelp" class="form-text text-muted"
         >We'll never share your email with anyone else.</small
@@ -18,8 +19,8 @@
       <input
         type="password"
         class="form-control"
-        id="exampleInputPassword1"
-        placeholder="Password"
+        placeholder="User password"
+        v-model="password"
       />
       <small class="text-danger">for security reasons DO YOU NOT USE YOUR GAME PASSWORD HERE</small>
     </div>
@@ -28,8 +29,8 @@
       <input
         type="password"
         class="form-control"
-        id="exampleInputPassword1"
-        placeholder="Password"
+        placeholder="Confirm password"
+        v-model="password_confirm"
       />
     </div>
     <div class="form-group">
@@ -37,13 +38,23 @@
       <input
         type="email"
         class="form-control"
-        id="exampleInputEmail1"
-        aria-describedby="emailHelp"
+        aria-describedby="User API Key"
         placeholder="Enter your api key"
+        v-model="api_key"
       />
-      <small id="emailHelp" class="form-text text-muted"
-        ><a href="javascript:void(0)">Click here</a> to generate your key</small
-      >
+      <small id="emailHelp" class="form-text text-muted">
+        <a href="javascript:void(0)">Click here</a> to generate your key
+      </small>
+
+      <div class="text-right">
+        <a href="javascript:void(0)" @click="setAuthModal('signin')">Sign In</a>
+        <button
+          type="button"
+          class="btn btn-primary"
+        >
+          Submit
+        </button>
+      </div>
     </div>
   </form>
 </template>
@@ -51,7 +62,19 @@
 <script>
 export default {
   props: ['selected_modal'],
-  methods: {},
+  data() {
+    return {
+      email: null,
+      password: null,
+      password_confirm: null,
+      api_key: null
+    }
+  },
+  methods: {
+    setAuthModal(modal) {
+      this.$emit('changeAuthModal', modal)
+    }
+  },
   mounted() {}
 };
 </script>
