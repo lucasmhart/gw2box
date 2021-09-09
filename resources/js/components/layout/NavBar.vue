@@ -36,8 +36,11 @@
         </form>
 
         <ul class="navbar-nav ml-auto">
-          <li class="nav-item">
+          <li class="nav-item" v-if="!this.$root.auth.user()">
             <a class="nav-link" href="javascript:void(0)" @click="openModalLogin()" >Login / Register</a>
+          </li>
+          <li class="nav-item" v-else>
+            <a class="nav-link" :href="this.$root.routes.getRoute('user.logout')">Logout</a>
           </li>
         </ul>
       </div>
@@ -56,6 +59,7 @@ export default {
     }
   },
   mounted() {
+    console.log(this.$root.auth.user())
   }
 };
 </script>

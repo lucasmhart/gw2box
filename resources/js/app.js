@@ -8,6 +8,8 @@ require('./bootstrap');
 
 window.Vue = require('vue').default;
 import Route from "@/src/helpers/Route";
+import Token from "@/src/helpers/Token";
+import Auth from "@/src/helpers/Auth";
 
 /**
  * The following block of code may be used to automatically register your
@@ -32,7 +34,9 @@ const app = new Vue({
     el: '#app',
     data() {
         return {
-            routes: Route
+            routes: Route,
+            token: Token,
+            auth: Auth
         }
     }
 });

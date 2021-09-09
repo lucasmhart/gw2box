@@ -4,6 +4,14 @@
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="base-url" content="{{ route('home') }}">
+        <meta name="csrf-token" content="{{ csrf_token() }}" />
+
+        @auth
+            <meta name="auth-user" content="{{ Auth::user() }}" />
+        @endauth
+        @guest
+            <meta name="auth-user" content="{{ false }}" />
+        @endguest
 
         <title>Gw2Box</title>
 

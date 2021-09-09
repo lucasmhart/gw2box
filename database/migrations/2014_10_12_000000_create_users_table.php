@@ -18,6 +18,7 @@ class CreateUsersTable extends Migration
             $table->string('email')->unique();
             $table->string('password');
             $table->string('api_key');
+            $table->boolean('is_api_key_valid')->default(true);
             $table->timestamps();
         });
     }

@@ -2017,19 +2017,55 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   props: ['selected_modal'],
   data: function data() {
     return {
       email: null,
       password: null,
-      password_confirm: null,
-      api_key: null
+      password_confirmation: null,
+      api_key: null,
+      errors: {},
+      block_request: false
     };
   },
   methods: {
     setAuthModal: function setAuthModal(modal) {
       this.$emit('changeAuthModal', modal);
+    },
+    submitSingUp: function submitSingUp() {
+      var _this = this;
+
+      var url = this.$root.routes.getRoute('user.create');
+      this.block_request = true;
+      axios.post(url, {
+        "_token": this.$root.token.get(),
+        "email": this.email,
+        "password": this.password,
+        "password_confirmation": this.password_confirmation,
+        "api_key": this.api_key
+      }).then(function (response) {
+        _this.block_request = false;
+
+        if (response.data.user_id > 0) {
+          location.reload();
+        }
+      })["catch"](function (error) {
+        _this.block_request = false;
+        _this.errors = error.response.data.errors;
+      });
     }
   },
   mounted: function mounted() {}
@@ -2108,7 +2144,7 @@ __webpack_require__.r(__webpack_exports__);
   },
   data: function data() {
     return {
-      selected_modal: "signin",
+      selected_modal: "signup",
       secundaryActionForm: "Sign up",
       primaryActionForm: "Sign in"
     };
@@ -2183,6 +2219,9 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   components: {
@@ -2193,7 +2232,9 @@ __webpack_require__.r(__webpack_exports__);
       $('#exampleModal').modal('show');
     }
   },
-  mounted: function mounted() {}
+  mounted: function mounted() {
+    console.log(this.$root.auth.user());
+  }
 });
 
 /***/ }),
@@ -2207,6 +2248,8 @@ __webpack_require__.r(__webpack_exports__);
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _src_helpers_Route__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @/src/helpers/Route */ "./resources/js/components/src/helpers/Route.js");
+/* harmony import */ var _src_helpers_Token__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @/src/helpers/Token */ "./resources/js/components/src/helpers/Token.js");
+/* harmony import */ var _src_helpers_Auth__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @/src/helpers/Auth */ "./resources/js/components/src/helpers/Auth.js");
 /**
  * First we will load all of this project's JavaScript dependencies which
  * includes Vue and other libraries. It is a great starting point when
@@ -2215,6 +2258,8 @@ __webpack_require__.r(__webpack_exports__);
 __webpack_require__(/*! ./bootstrap */ "./resources/js/bootstrap.js");
 
 window.Vue = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.esm.js")["default"];
+
+
 
 /**
  * The following block of code may be used to automatically register your
@@ -2237,7 +2282,9 @@ var app = new Vue({
   el: '#app',
   data: function data() {
     return {
-      routes: _src_helpers_Route__WEBPACK_IMPORTED_MODULE_0__["default"]
+      routes: _src_helpers_Route__WEBPACK_IMPORTED_MODULE_0__["default"],
+      token: _src_helpers_Token__WEBPACK_IMPORTED_MODULE_1__["default"],
+      auth: _src_helpers_Auth__WEBPACK_IMPORTED_MODULE_2__["default"]
     };
   }
 });
@@ -2288,6 +2335,42 @@ window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
 
 /***/ }),
 
+/***/ "./resources/js/components/src/helpers/Auth.js":
+/*!*****************************************************!*\
+  !*** ./resources/js/components/src/helpers/Auth.js ***!
+  \*****************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
+
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
+
+var Token = /*#__PURE__*/function () {
+  function Token() {
+    _classCallCheck(this, Token);
+  }
+
+  _createClass(Token, null, [{
+    key: "user",
+    value: function user() {
+      return $('meta[name="auth-user"]').attr("content");
+    }
+  }]);
+
+  return Token;
+}();
+
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (Token);
+
+/***/ }),
+
 /***/ "./resources/js/components/src/helpers/Route.js":
 /*!******************************************************!*\
   !*** ./resources/js/components/src/helpers/Route.js ***!
@@ -2305,6 +2388,8 @@ function _defineProperties(target, props) { for (var i = 0; i < props.length; i+
 
 function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
 
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
 var Route = /*#__PURE__*/function () {
   function Route() {
     _classCallCheck(this, Route);
@@ -2315,12 +2400,58 @@ var Route = /*#__PURE__*/function () {
     value: function baseRoute() {
       return $('meta[name="base-url"]').attr("content");
     }
+  }, {
+    key: "getRoute",
+    value: function getRoute(route, params) {
+      return this.baseRoute() + this.routes[route];
+    }
   }]);
 
   return Route;
 }();
 
+_defineProperty(Route, "routes", {
+  "user.create": "/user/create",
+  "user.logout": "/user/logout"
+});
+
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (Route);
+
+/***/ }),
+
+/***/ "./resources/js/components/src/helpers/Token.js":
+/*!******************************************************!*\
+  !*** ./resources/js/components/src/helpers/Token.js ***!
+  \******************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
+
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
+
+var Token = /*#__PURE__*/function () {
+  function Token() {
+    _classCallCheck(this, Token);
+  }
+
+  _createClass(Token, null, [{
+    key: "get",
+    value: function get() {
+      return $('meta[name="csrf-token"]').attr("content");
+    }
+  }]);
+
+  return Token;
+}();
+
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (Token);
 
 /***/ }),
 
@@ -38705,6 +38836,7 @@ var render = function() {
           }
         ],
         staticClass: "form-control",
+        class: { "is-invalid": _vm.errors.email },
         attrs: {
           type: "email",
           name: "email",
@@ -38722,11 +38854,11 @@ var render = function() {
         }
       }),
       _vm._v(" "),
-      _c(
-        "small",
-        { staticClass: "form-text text-muted", attrs: { id: "emailHelp" } },
-        [_vm._v("We'll never share your email with anyone else.")]
-      )
+      _vm.errors.email
+        ? _c("div", { staticClass: "invalid-feedback" }, [
+            _vm._v("\n      " + _vm._s(_vm.errors.email[0]) + "\n    ")
+          ])
+        : _vm._e()
     ]),
     _vm._v(" "),
     _c("div", { staticClass: "form-group" }, [
@@ -38744,6 +38876,7 @@ var render = function() {
           }
         ],
         staticClass: "form-control",
+        class: { "is-invalid": _vm.errors.password },
         attrs: { type: "password", placeholder: "User password" },
         domProps: { value: _vm.password },
         on: {
@@ -38755,6 +38888,12 @@ var render = function() {
           }
         }
       }),
+      _vm._v(" "),
+      _vm.errors.password
+        ? _c("div", { staticClass: "invalid-feedback" }, [
+            _vm._v("\n      " + _vm._s(_vm.errors.password[0]) + "\n    ")
+          ])
+        : _vm._e(),
       _vm._v(" "),
       _c("small", { staticClass: "text-danger" }, [
         _vm._v("for security reasons DO YOU NOT USE YOUR GAME PASSWORD HERE")
@@ -38771,19 +38910,20 @@ var render = function() {
           {
             name: "model",
             rawName: "v-model",
-            value: _vm.password_confirm,
-            expression: "password_confirm"
+            value: _vm.password_confirmation,
+            expression: "password_confirmation"
           }
         ],
         staticClass: "form-control",
+        class: { "is-invalid": _vm.errors.password },
         attrs: { type: "password", placeholder: "Confirm password" },
-        domProps: { value: _vm.password_confirm },
+        domProps: { value: _vm.password_confirmation },
         on: {
           input: function($event) {
             if ($event.target.composing) {
               return
             }
-            _vm.password_confirm = $event.target.value
+            _vm.password_confirmation = $event.target.value
           }
         }
       })
@@ -38804,8 +38944,9 @@ var render = function() {
           }
         ],
         staticClass: "form-control",
+        class: { "is-invalid": _vm.errors.api_key },
         attrs: {
-          type: "email",
+          type: "text",
           "aria-describedby": "User API Key",
           placeholder: "Enter your api key"
         },
@@ -38820,12 +38961,19 @@ var render = function() {
         }
       }),
       _vm._v(" "),
+      _vm.errors.api_key
+        ? _c("div", { staticClass: "invalid-feedback" }, [
+            _vm._v("\n      " + _vm._s(_vm.errors.api_key[0]) + "\n    ")
+          ])
+        : _vm._e(),
+      _vm._v(" "),
       _vm._m(0),
       _vm._v(" "),
       _c("div", { staticClass: "text-right" }, [
         _c(
           "a",
           {
+            staticClass: "pr-2",
             attrs: { href: "javascript:void(0)" },
             on: {
               click: function($event) {
@@ -38838,8 +38986,20 @@ var render = function() {
         _vm._v(" "),
         _c(
           "button",
-          { staticClass: "btn btn-primary", attrs: { type: "button" } },
-          [_vm._v("\n        Submit\n      ")]
+          {
+            staticClass: "btn btn-primary",
+            attrs: { type: "button", disabled: _vm.block_request },
+            on: {
+              click: function($event) {
+                return _vm.submitSingUp()
+              }
+            }
+          },
+          [
+            !_vm.block_request
+              ? _c("span", [_vm._v("Submit")])
+              : _c("span", [_c("i", { staticClass: "fas fa-spinner fa-spin" })])
+          ]
         )
       ])
     ])
@@ -38854,9 +39014,16 @@ var staticRenderFns = [
       "small",
       { staticClass: "form-text text-muted", attrs: { id: "emailHelp" } },
       [
-        _c("a", { attrs: { href: "javascript:void(0)" } }, [
-          _vm._v("Click here")
-        ]),
+        _c(
+          "a",
+          {
+            attrs: {
+              href: "https://account.arena.net/applications",
+              target: "_blank"
+            }
+          },
+          [_vm._v("Click here")]
+        ),
         _vm._v(" to generate your key\n    ")
       ]
     )
@@ -39040,21 +39207,34 @@ var render = function() {
             _vm._m(1),
             _vm._v(" "),
             _c("ul", { staticClass: "navbar-nav ml-auto" }, [
-              _c("li", { staticClass: "nav-item" }, [
-                _c(
-                  "a",
-                  {
-                    staticClass: "nav-link",
-                    attrs: { href: "javascript:void(0)" },
-                    on: {
-                      click: function($event) {
-                        return _vm.openModalLogin()
-                      }
-                    }
-                  },
-                  [_vm._v("Login / Register")]
-                )
-              ])
+              !this.$root.auth.user()
+                ? _c("li", { staticClass: "nav-item" }, [
+                    _c(
+                      "a",
+                      {
+                        staticClass: "nav-link",
+                        attrs: { href: "javascript:void(0)" },
+                        on: {
+                          click: function($event) {
+                            return _vm.openModalLogin()
+                          }
+                        }
+                      },
+                      [_vm._v("Login / Register")]
+                    )
+                  ])
+                : _c("li", { staticClass: "nav-item" }, [
+                    _c(
+                      "a",
+                      {
+                        staticClass: "nav-link",
+                        attrs: {
+                          href: this.$root.routes.getRoute("user.logout")
+                        }
+                      },
+                      [_vm._v("Logout")]
+                    )
+                  ])
             ])
           ]
         )
