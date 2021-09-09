@@ -1,7 +1,8 @@
 class Route {
     static routes = {
         "user.create": "/user/create",
-        "user.logout": "/user/logout"
+        "user.logout": "/user/logout",
+        "user.login": "/user/login"
     }
 
     constructor() {

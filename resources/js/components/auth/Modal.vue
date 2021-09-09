@@ -56,7 +56,7 @@ export default {
   },
   data() {
     return {
-      selected_modal: "signup",
+      selected_modal: "signin",
       secundaryActionForm: "Sign up",
       primaryActionForm: "Sign in"
     };

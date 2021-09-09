@@ -1934,10 +1934,70 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
+  data: function data() {
+    return {
+      email: null,
+      password: null,
+      errors: {},
+      block_request: false,
+      login_countdown: 0
+    };
+  },
   methods: {
     setAuthModal: function setAuthModal(modal) {
       this.$emit('changeAuthModal', modal);
+    },
+    submitSingIn: function submitSingIn() {
+      var _this = this;
+
+      var url = this.$root.routes.getRoute('user.login');
+      this.block_request = true;
+      this.errors = {};
+      axios.post(url, {
+        "_token": this.$root.token.get(),
+        "email": this.email,
+        "password": this.password
+      }).then(function (response) {
+        if (response.data.logged_in) {
+          location.reload();
+        } else {
+          _this.login_countdown = 5;
+
+          _this.countDownTimer();
+        }
+      })["catch"](function (error) {
+        _this.block_request = false;
+        _this.errors = error.response.data.errors;
+      });
+    },
+    countDownTimer: function countDownTimer() {
+      var _this2 = this;
+
+      if (this.login_countdown > 0) {
+        setTimeout(function () {
+          _this2.login_countdown -= 1;
+
+          _this2.countDownTimer();
+        }, 1000);
+      } else {
+        this.block_request = false;
+      }
     }
   },
   mounted: function mounted() {}
@@ -2030,7 +2090,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
-  props: ['selected_modal'],
   data: function data() {
     return {
       email: null,
@@ -2050,6 +2109,7 @@ __webpack_require__.r(__webpack_exports__);
 
       var url = this.$root.routes.getRoute('user.create');
       this.block_request = true;
+      this.errors = {};
       axios.post(url, {
         "_token": this.$root.token.get(),
         "email": this.email,
@@ -2144,7 +2204,7 @@ __webpack_require__.r(__webpack_exports__);
   },
   data: function data() {
     return {
-      selected_modal: "signup",
+      selected_modal: "signin",
       secundaryActionForm: "Sign up",
       primaryActionForm: "Sign in"
     };
@@ -2412,7 +2472,8 @@ var Route = /*#__PURE__*/function () {
 
 _defineProperty(Route, "routes", {
   "user.create": "/user/create",
-  "user.logout": "/user/logout"
+  "user.logout": "/user/logout",
+  "user.login": "/user/login"
 });
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (Route);
@@ -38714,37 +38775,109 @@ var render = function() {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c("form", [
-    _vm._m(0),
+    _vm.login_countdown > 0
+      ? _c(
+          "div",
+          { staticClass: "alert alert-danger", attrs: { role: "alert" } },
+          [
+            _vm._v(
+              "\n    Invalid email or password, please try again or click on "
+            ),
+            _c("b", [_vm._v("forget my password")]),
+            _vm._v(".\n  ")
+          ]
+        )
+      : _vm._e(),
     _vm._v(" "),
     _c("div", { staticClass: "form-group" }, [
+      _c("label", { attrs: { for: "exampleInputEmail1" } }, [
+        _vm._v("Email address")
+      ]),
+      _vm._v(" "),
+      _c("input", {
+        directives: [
+          {
+            name: "model",
+            rawName: "v-model",
+            value: _vm.email,
+            expression: "email"
+          }
+        ],
+        staticClass: "form-control",
+        class: { "is-invalid": _vm.errors.email },
+        attrs: {
+          type: "email",
+          name: "email",
+          "aria-describedby": "User email input",
+          placeholder: "Enter email"
+        },
+        domProps: { value: _vm.email },
+        on: {
+          input: function($event) {
+            if ($event.target.composing) {
+              return
+            }
+            _vm.email = $event.target.value
+          }
+        }
+      }),
+      _vm._v(" "),
+      _vm.errors.email
+        ? _c("div", { staticClass: "invalid-feedback" }, [
+            _vm._v("\n      " + _vm._s(_vm.errors.email[0]) + "\n    ")
+          ])
+        : _vm._e()
+    ]),
+    _vm._v(" "),
+    _c("div", { staticClass: "form-group mb-1" }, [
       _c("label", { attrs: { for: "exampleInputPassword1" } }, [
         _vm._v("Password")
       ]),
       _vm._v(" "),
       _c("input", {
+        directives: [
+          {
+            name: "model",
+            rawName: "v-model",
+            value: _vm.password,
+            expression: "password"
+          }
+        ],
         staticClass: "form-control",
-        attrs: {
-          type: "password",
-          id: "exampleInputPassword1",
-          placeholder: "Password"
+        class: { "is-invalid": _vm.errors.password },
+        attrs: { type: "password", placeholder: "User password" },
+        domProps: { value: _vm.password },
+        on: {
+          input: function($event) {
+            if ($event.target.composing) {
+              return
+            }
+            _vm.password = $event.target.value
+          }
         }
       }),
       _vm._v(" "),
-      _c("p", { staticClass: "text-right" }, [
-        _c("small", [
-          _c(
-            "a",
-            {
-              attrs: { href: "javascript:void(0)" },
-              on: {
-                click: function($event) {
-                  return _vm.setAuthModal("forgot_password")
-                }
+      _vm.errors.password
+        ? _c("div", { staticClass: "invalid-feedback" }, [
+            _vm._v("\n      " + _vm._s(_vm.errors.password[0]) + "\n    ")
+          ])
+        : _vm._e()
+    ]),
+    _vm._v(" "),
+    _c("p", { staticClass: "text-right" }, [
+      _c("small", [
+        _c(
+          "a",
+          {
+            attrs: { href: "javascript:void(0)" },
+            on: {
+              click: function($event) {
+                return _vm.setAuthModal("forgot_password")
               }
-            },
-            [_vm._v("Forgot my password")]
-          )
-        ])
+            }
+          },
+          [_vm._v("Forgot my password")]
+        )
       ])
     ]),
     _vm._v(" "),
@@ -38752,6 +38885,7 @@ var render = function() {
       _c(
         "a",
         {
+          staticClass: "pr-2",
           attrs: { href: "javascript:void(0)" },
           on: {
             click: function($event) {
@@ -38764,40 +38898,36 @@ var render = function() {
       _vm._v(" "),
       _c(
         "button",
-        { staticClass: "btn btn-primary", attrs: { type: "button" } },
-        [_vm._v("\n      Submit\n    ")]
+        {
+          staticClass: "btn btn-primary",
+          attrs: {
+            type: "button",
+            disabled: _vm.block_request || !_vm.email || !_vm.password
+          },
+          on: {
+            click: function($event) {
+              return _vm.submitSingIn()
+            }
+          }
+        },
+        [
+          !_vm.block_request && _vm.login_countdown === 0
+            ? _c("span", [_vm._v("Submit")])
+            : _c("span", [
+                _vm.login_countdown > 0
+                  ? _c("i", [
+                      _vm._v(
+                        "Try again in " + _vm._s(_vm.login_countdown) + " ... "
+                      )
+                    ])
+                  : _c("i", { staticClass: "fas fa-spinner fa-spin" })
+              ])
+        ]
       )
     ])
   ])
 }
-var staticRenderFns = [
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "form-group" }, [
-      _c("label", { attrs: { for: "exampleInputEmail1" } }, [
-        _vm._v("Email address")
-      ]),
-      _vm._v(" "),
-      _c("input", {
-        staticClass: "form-control",
-        attrs: {
-          type: "email",
-          id: "exampleInputEmail1",
-          "aria-describedby": "emailHelp",
-          placeholder: "Enter email"
-        }
-      }),
-      _vm._v(" "),
-      _c(
-        "small",
-        { staticClass: "form-text text-muted", attrs: { id: "emailHelp" } },
-        [_vm._v("We'll never share your email with anyone else.")]
-      )
-    ])
-  }
-]
+var staticRenderFns = []
 render._withStripped = true
 
 

@@ -73,7 +73,6 @@
 
 <script>
 export default {
-  props: ['selected_modal'],
   data() {
     return {
       email: null,
@@ -92,6 +91,8 @@ export default {
       const url = this.$root.routes.getRoute('user.create')
 
       this.block_request = true
+      this.errors = {}
+
       axios.post(url, {
         "_token": this.$root.token.get(),
         "email": this.email,

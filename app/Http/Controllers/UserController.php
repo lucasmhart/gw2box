@@ -32,4 +32,19 @@ class UserController extends Controller
         Auth::logout();
         return redirect()->route('home');
     }
+
+    public function login(Request $request)
+    {
+        $credentials = $request->validate([
+            'email' => ['required', 'email'],
+            'password' => ['required']
+        ]);
+
+        if (Auth::attempt($credentials)) {
+            $request->session()->regenerate();
+            return response()->json(['logged_in' => true], 200);
+        }
+
+        return response()->json(['logged_in' => false], 200);
+    }
 }
