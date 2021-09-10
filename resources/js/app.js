@@ -10,6 +10,9 @@ window.Vue = require('vue').default;
 import Route from "@/src/helpers/Route";
 import Token from "@/src/helpers/Token";
 import Auth from "@/src/helpers/Auth";
+import Swal from 'sweetalert2'
+
+import 'sweetalert2/src/sweetalert2.scss'
 
 /**
  * The following block of code may be used to automatically register your
@@ -36,7 +39,8 @@ const app = new Vue({
         return {
             routes: Route,
             token: Token,
-            auth: Auth
+            auth: Auth,
+            swal: Swal,
         }
     }
 });

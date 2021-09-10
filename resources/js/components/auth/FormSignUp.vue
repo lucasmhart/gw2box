@@ -102,11 +102,34 @@ export default {
       }).then(response => {
         this.block_request = false
         if (response.data.user_id > 0) {
-          location.reload()
+          this.signUpSuccess()
         }
       }).catch(error => {
         this.block_request = false
         this.errors = error.response.data.errors;
+      })
+    },
+    signUpSuccess() {
+      let timerInterval
+      this.$root.swal.fire({
+        title: 'Account created successfully',
+        timer: 2000,
+        timerProgressBar: true,
+        didOpen: () => {
+          this.$root.swal.showLoading()
+          const b = this.$root.swal.getHtmlContainer().querySelector('b')
+          timerInterval = setInterval(() => {
+            b.textContent = this.$root.swal.getTimerLeft()
+          }, 100)
+        },
+        willClose: () => {
+          clearInterval(timerInterval)
+        }
+      }).then((result) => {
+        /* Read more about handling dismissals below */
+        if (result.dismiss === this.$root.swal.DismissReason.timer) {
+          location.reload()
+        }
       })
     }
   },

@@ -79,7 +79,7 @@ export default {
         "password": this.password
       }).then(response => {
         if(response.data.logged_in) {
-          location.reload()
+          this.signInSuccess()
         } else {
           this.login_countdown = 5
           this.countDownTimer()
@@ -98,6 +98,29 @@ export default {
       } else {
         this.block_request = false
       }
+    },
+    signInSuccess() {
+      let timerInterval
+      this.$root.swal.fire({
+        title: 'Loading your account',
+        timer: 2000,
+        timerProgressBar: true,
+        didOpen: () => {
+          this.$root.swal.showLoading()
+          const b = this.$root.swal.getHtmlContainer().querySelector('b')
+          timerInterval = setInterval(() => {
+            b.textContent = this.$root.swal.getTimerLeft()
+          }, 100)
+        },
+        willClose: () => {
+          clearInterval(timerInterval)
+        }
+      }).then((result) => {
+        /* Read more about handling dismissals below */
+        if (result.dismiss === this.$root.swal.DismissReason.timer) {
+          location.reload()
+        }
+      })
     }
   },
   mounted() {}
