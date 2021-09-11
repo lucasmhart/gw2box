@@ -10,6 +10,7 @@ class GWAccount extends Model
     use HasFactory;
     protected $table = 'gw_accounts';
     protected $fillable = [
+        'user_id',
         'gw_id',
         'age',
         'name',
@@ -22,6 +23,11 @@ class GWAccount extends Model
         'wvw_rank',
         'last_modified',
     ];
+
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
 
     public function access()
     {

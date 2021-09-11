@@ -15,6 +15,8 @@ class CreateGWAccountsTable extends Migration
     {
         Schema::create('gw_accounts', function (Blueprint $table) {
             $table->id();
+            $table->bigInteger('user_id')->unsigned();
+            $table->foreign('user_id')->references('id')->on('users');
             $table->string('gw_id');
             $table->bigInteger('age');
             $table->string('name');
