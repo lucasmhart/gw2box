@@ -1,16 +1,15 @@
 <template>
   <div
     class="modal fade"
-    id="exampleModal"
+    id="authModal"
     tabindex="-1"
     role="dialog"
-    aria-labelledby="exampleModalLabel"
     aria-hidden="true"
   >
     <div class="modal-dialog" role="document">
       <div class="modal-content">
         <div class="modal-header">
-          <h5 class="modal-title text-center" id="exampleModalLabel">
+          <h5 class="modal-title text-center">
             GW2<i class="fas fa-box-open"></i>
           </h5>
           <button

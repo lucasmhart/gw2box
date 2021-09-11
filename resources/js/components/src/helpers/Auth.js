@@ -2,7 +2,7 @@ class Token {
     constructor() {}
 
     static user() {
-        return $('meta[name="auth-user"]').attr("content");
+        return JSON.parse($('meta[name="auth-user"]').attr("content"));
     }
 }
 

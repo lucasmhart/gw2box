@@ -47,4 +47,19 @@ class UserController extends Controller
 
         return response()->json(['logged_in' => false], 200);
     }
+
+    public function updateApiKey(Request $request)
+    {
+        $request->validate([
+            'api_key' => 'required'
+        ]);
+
+        $user = Auth::user();
+        $user->api_key = $request->input('api_key');
+        $user->save();
+
+        // TODO clean all user data tables (account, chars) and get everything again
+
+        return response()->json(['status' => 200]);
+    }
 }

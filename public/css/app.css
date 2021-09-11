@@ -7,6 +7,10 @@ body {
   height: 100%;
 }
 
+.navbar .dropdown-menu a {
+  color: #182848;
+}
+
 .navbar {
   color: #f9f7fc;
 }

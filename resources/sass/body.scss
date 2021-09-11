@@ -6,6 +6,14 @@ body {
 }
 
 .navbar {
+    .dropdown-menu {
+        a {
+            color: $color-primary;
+        }
+    }
+}
+
+.navbar {
     color: $color-secundary;
 
     a {

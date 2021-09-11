@@ -1,7 +1,9 @@
 <template>
   <div class="container">
     <nav class="navbar navbar-expand-md">
-      <a class="navbar-brand" :href="this.$root.routes.baseRoute()">GW2<i class="fas fa-box-open"></i></a>
+      <a class="navbar-brand" :href="this.$root.routes.baseRoute()"
+        >GW2<i class="fas fa-box-open"></i
+      ></a>
       <button
         class="navbar-toggler"
         type="button"
@@ -23,43 +25,56 @@
           </li> -->
         </ul>
 
-        <form class="form-inline my-2 my-lg-0">
-          <input
-            class="form-control mr-sm-2 form-control-sm"
-            type="search"
-            placeholder="Search"
-            aria-label="Search"
-          />
-          <button class="btn btn-outline-custom my-2 my-sm-0 btn-sm" type="submit">
-            Search
-          </button>
-        </form>
-
         <ul class="navbar-nav ml-auto">
-          <li class="nav-item" v-if="!this.$root.auth.user()">
-            <a class="nav-link" href="javascript:void(0)" @click="openModalLogin()" >Login / Register</a>
+        <li class="nav-item" v-if="!this.$root.auth.user()">
+            <a
+              class="nav-link"
+              href="javascript:void(0)"
+              @click="openModalLogin()"
+              >Login / Register</a
+            >
           </li>
-          <li class="nav-item" v-else>
-            <a class="nav-link" :href="this.$root.routes.getRoute('user.logout')">Logout</a>
+          <li class="nav-item dropdown" v-else>
+            <a
+              class="nav-link dropdown-toggle"
+              href="#"
+              id="navbarDropdown"
+              role="button"
+              data-toggle="dropdown"
+              aria-haspopup="true"
+              aria-expanded="false"
+            >
+              Profile
+            </a>
+            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+              <a class="dropdown-item" href="#" @click="openModalApiKey()"><i class="fas fa-key fa-fw"></i> Api Key</a>
+              <a class="dropdown-item" href="#"><i class="fas fa-user-lock fa-fw"></i> Change password</a>
+              <div class="dropdown-divider"></div>
+              <a class="dropdown-item" :href="this.$root.routes.getRoute('user.logout')"><i class="fas fa-sign-out-alt fa-fw"></i> Logout</a>
+            </div>
           </li>
         </ul>
       </div>
     </nav>
     <auth-modal></auth-modal>
+    <api-key-modal></api-key-modal>
   </div>
 </template>
 
 <script>
-import authModal from '@/auth/Modal'
+import authModal from "@/auth/Modal";
+import apiKeyModal from "@/api_key/Modal";
 export default {
-  components: {authModal},
-  methods:{
+  components: { authModal, apiKeyModal },
+  methods: {
     openModalLogin() {
-      $('#exampleModal').modal('show')
+      $("#authModal").modal("show");
+    },
+    openModalApiKey() {
+      $("#apiKeyModal").modal("show");
     }
   },
   mounted() {
-    console.log(this.$root.auth.user())
   }
 };
 </script>

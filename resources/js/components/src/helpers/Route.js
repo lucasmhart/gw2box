@@ -2,7 +2,8 @@ class Route {
     static routes = {
         "user.create": "/user/create",
         "user.logout": "/user/logout",
-        "user.login": "/user/login"
+        "user.login": "/user/login",
+        "user.updateApiKey": "/user/updateApiKey"
     }
 
     constructor() {
