@@ -48,7 +48,7 @@
             </a>
             <div class="dropdown-menu" aria-labelledby="navbarDropdown">
               <a class="dropdown-item" href="#" @click="openModalApiKey()"><i class="fas fa-key fa-fw"></i> Api Key</a>
-              <a class="dropdown-item" href="#"><i class="fas fa-user-lock fa-fw"></i> Change password</a>
+              <a class="dropdown-item" href="#" @click="openModalPassword()"><i class="fas fa-user-lock fa-fw"></i> Change password</a>
               <div class="dropdown-divider"></div>
               <a class="dropdown-item" :href="this.$root.routes.getRoute('user.logout')"><i class="fas fa-sign-out-alt fa-fw"></i> Logout</a>
             </div>
@@ -58,20 +58,25 @@
     </nav>
     <auth-modal></auth-modal>
     <api-key-modal></api-key-modal>
+    <password-modal></password-modal>
   </div>
 </template>
 
 <script>
 import authModal from "@/auth/Modal";
 import apiKeyModal from "@/api_key/Modal";
+import passwordModal from "@/password/Modal";
 export default {
-  components: { authModal, apiKeyModal },
+  components: { authModal, apiKeyModal, passwordModal },
   methods: {
     openModalLogin() {
       $("#authModal").modal("show");
     },
     openModalApiKey() {
       $("#apiKeyModal").modal("show");
+    },
+    openModalPassword() {
+      $("#passwordModal").modal("show");
     }
   },
   mounted() {

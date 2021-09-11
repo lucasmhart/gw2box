@@ -22,4 +22,5 @@ Route::prefix('user')->name('user.')->group(function () {
     Route::post('/login', [UserController::class, 'login'])->name('login');
     Route::get('/logout', [UserController::class, 'logout'])->name('logout');
     Route::post('/updateApiKey', [UserController::class, 'updateApiKey'])->name('updateApiKey');
+    Route::post('/updatePassword', [UserController::class, 'updatePassword'])->name('updatePassword');
 });

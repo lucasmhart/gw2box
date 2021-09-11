@@ -1,7 +1,7 @@
 <template>
   <div
     class="modal fade"
-    id="apiKeyModal"
+    id="passwordModal"
     tabindex="-1"
     role="dialog"
     aria-hidden="true"
@@ -22,32 +22,52 @@
           </button>
         </div>
         <div class="modal-body">
+          <div
+            class="alert alert-danger"
+            role="alert"
+            v-if="errors.generic">
+            {{ errors.generic }}
+          </div>
           <form>
             <div class="form-group">
-              <label for="exampleInputEmail1">API Key</label>
+              <label for="exampleInputPassword1">Current Password</label>
               <input
-                type="text"
+                type="password"
                 class="form-control"
-                :class="{ 'is-invalid': errors.api_key }"
-                aria-describedby="User API Key"
-                placeholder="Enter your api key"
-                v-model="api_key"
+                :class="{ 'is-invalid': errors.current_password }"
+                placeholder="Current password"
+                v-model="current_password"
               />
-              <div class="invalid-feedback" v-if="errors.api_key">
-                {{ errors.api_key[0] }}
+              <div class="invalid-feedback" v-if="errors.current_password">
+                {{ errors.current_password[0] }}
               </div>
-              <small id="emailHelp" class="form-text text-muted">
-                <a
-                  href="https://account.arena.net/applications"
-                  target="_blank"
-                >
-                  Click here
-                </a>
-                to generate your key
-              </small>
-              <small class="text-danger">
-                All your data will be replaced by the new API KEY data.
-              </small>
+            </div>
+            <div class="form-group">
+              <label for="exampleInputPassword1">Password</label>
+              <input
+                type="password"
+                class="form-control"
+                :class="{ 'is-invalid': errors.password }"
+                placeholder="User password"
+                v-model="password"
+              />
+              <div class="invalid-feedback" v-if="errors.password">
+                {{ errors.password[0] }}
+              </div>
+              <small class="text-danger"
+                >for security reasons DO YOU NOT USE YOUR GAME PASSWORD
+                HERE</small
+              >
+            </div>
+            <div class="form-group">
+              <label for="exampleInputPassword1">Confirm Password</label>
+              <input
+                type="password"
+                class="form-control"
+                :class="{ 'is-invalid': errors.password }"
+                placeholder="Confirm password"
+                v-model="password_confirmation"
+              />
             </div>
             <div class="text-right">
               <button
@@ -71,14 +91,16 @@
 export default {
   data() {
     return {
-      api_key: null,
+      current_password: null,
+      password: null,
+      password_confirmation: null,
       errors: {},
       block_request: false
     };
   },
   methods: {
     submit() {
-      const url = this.$root.routes.getRoute("user.updateApiKey");
+      const url = this.$root.routes.getRoute("user.updatePassword");
 
       this.block_request = true;
       this.errors = [];
@@ -86,12 +108,16 @@ export default {
       axios
         .post(url, {
           _token: this.$root.token.get(),
-          api_key: this.api_key
+          current_password: this.current_password,
+          password: this.password,
+          password_confirmation: this.password_confirmation
         })
         .then(response => {
           this.block_request = false;
-          if ((response.data.status = 200)) {
-            this.updateApiKeySuccess();
+          if (response.data.status == 200) {
+            this.updateSuccess();
+          } else if (response.data.status == 401) {
+            this.errors.generic = response.data.message;
           }
         })
         .catch(error => {
@@ -99,11 +125,11 @@ export default {
           this.errors = error.response.data.errors;
         });
     },
-    updateApiKeySuccess() {
-      let timerInterval
+    updateSuccess() {
+      let timerInterval;
       this.$root.swal
         .fire({
-          title: "API Key updated successfully",
+          title: "Password updated successfully",
           timer: 2000,
           timerProgressBar: true,
           didOpen: () => {

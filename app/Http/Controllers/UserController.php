@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
 
 class UserController extends Controller
 {
@@ -59,6 +60,24 @@ class UserController extends Controller
         $user->save();
 
         // TODO clean all user data tables (account, chars) and get everything again
+
+        return response()->json(['status' => 200]);
+    }
+
+    public function updatePassword(Request $request)
+    {
+        $request->validate([
+            'current_password' => ['required'],
+            'password' => ['required', 'confirmed'],
+        ]);
+
+        if (!Hash::check($request->input('current_password'), Auth::user()->password)) {
+            return response()->json(['status' => 401, 'message' => 'Current password does not match']);
+        }
+
+        $user = Auth::user();
+        $user->password = bcrypt($request->input('password'));
+        $user->save();
 
         return response()->json(['status' => 200]);
     }

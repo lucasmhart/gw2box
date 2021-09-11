@@ -3,7 +3,8 @@ class Route {
         "user.create": "/user/create",
         "user.logout": "/user/logout",
         "user.login": "/user/login",
-        "user.updateApiKey": "/user/updateApiKey"
+        "user.updateApiKey": "/user/updateApiKey",
+        "user.updatePassword": "/user/updatePassword"
     }
 
     constructor() {
