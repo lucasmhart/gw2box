@@ -27,5 +27,5 @@ Route::prefix('user')->name('user.')->group(function () {
 });
 
 Route::prefix('account')->name('account.')->middleware(['auth'])->group(function () {
-    Route::get('/', [AccountController::class, 'index'])->name('home');
+    Route::get('/', [AccountController::class, 'index'])->name('index');
 });

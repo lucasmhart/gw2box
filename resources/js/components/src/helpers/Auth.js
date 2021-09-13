@@ -1,4 +1,4 @@
-class Token {
+class Auth {
     constructor() {}
 
     static user() {
@@ -12,4 +12,4 @@ class Token {
     }
 }
 
-export default Token
+export default Auth

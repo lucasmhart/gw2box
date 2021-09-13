@@ -22,10 +22,10 @@
     <body>
         <div id="app">
             <nav-bar></nav-bar>
+
+            @yield('content')
         </div>
 
-        @yield('content')
-        
         <script src="{{ asset('js/app.js') }}"></script>
     </body>
 </html>

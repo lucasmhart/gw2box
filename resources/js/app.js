@@ -7,9 +7,12 @@
 require('./bootstrap');
 
 window.Vue = require('vue').default;
+
 import Route from "@/src/helpers/Route";
 import Token from "@/src/helpers/Token";
 import Auth from "@/src/helpers/Auth";
+import GWObject from "@/src/GW2/Object";
+
 import Swal from 'sweetalert2'
 
 import 'sweetalert2/src/sweetalert2.scss'
@@ -26,6 +29,7 @@ import 'sweetalert2/src/sweetalert2.scss'
 // files.keys().map(key => Vue.component(key.split('/').pop().split('.')[0], files(key).default))
 
 Vue.component('nav-bar', require('./components/layout/NavBar.vue').default);
+Vue.component('gw-account', require('./components/account/Main.vue').default);
 
 /**
  * Next, we will create a fresh Vue application instance and attach it to
@@ -41,6 +45,7 @@ const app = new Vue({
             token: Token,
             auth: Auth,
             swal: Swal,
+            gw_object: GWObject,
         }
     }
 });
