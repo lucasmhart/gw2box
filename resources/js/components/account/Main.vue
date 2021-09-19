@@ -13,9 +13,7 @@ export default {
 
   },
   created() {
-    console.log('aqqwe')
-    console.log(this.$root.gw_object.get());
-  }
+  },
 };
 </script>
 

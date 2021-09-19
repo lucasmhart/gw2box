@@ -1,14 +1,31 @@
+import Account from './Account'
 class Object {
-    constructor() {}
+    constructor() {
+    }
+
+    static object = null;
 
     static get() {
-        var object = false;
         try {
-            object = JSON.parse($('#gwo').val());
+            return JSON.parse($('#gwo').val());
         } catch (e) {
-            object = false;
+            return false;
         }
-        return object;
+    }
+
+    static set(object) {
+        $('#gwo').val(object)
+    }
+
+    static update() {
+        if (Object.get() === false){
+            return;
+        }
+
+        console.log(Object.get().account);
+        if (Object.get().account.is_updatable === true) {
+            Account.updateAccount();
+        }
     }
 }
 

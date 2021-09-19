@@ -18,6 +18,6 @@ class GWAccount_guilds extends Model
 
     public function account()
     {
-        return $this->belongsTo(GWAccount::class);
+        return $this->belongsTo(GWAccount::class, 'id', 'gw_account_id');
     }
 }

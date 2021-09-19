@@ -1,14 +1,16 @@
 <?php
 
-namespace App\Src;
+namespace App\Src\GW\Helpers;
 
+use App\Models\GWAccount;
 use App\Models\User;
+use Carbon\Carbon;
 use stdClass;
 
 class GWObject
 {
-    private User $user;
-    private stdClass $object;
+    private $user;
+    private $object;
 
     public function __construct(User $user)
     {
@@ -29,11 +31,11 @@ class GWObject
 
     private function setObject()
     {
-        $this->object->key = $this->getKeyData();
-        $this->object->account = $this->getAccountData();
+        $this->object->key = $this->setKeyData();
+        $this->object->account = $this->setAccountData();
     }
 
-    private function getKeyData()
+    private function setKeyData()
     {
         $key = new stdClass();
         $key->key = $this->user->api_key;
@@ -41,14 +43,29 @@ class GWObject
         return $key;
     }
 
-    private function getAccountData()
+    private function setAccountData()
     {
-        $account = $this->user->account;
+        $account = GWAccount::where('user_id', $this->user->id)->first();
         if ($account) {
             $account->access = $account->access ?? new stdClass();
             $account->guilds = $account->guilds ?? new stdClass();
+            $account->is_updatable = $this->isUpdatable($account);
         }
 
         return $account;
+    }
+
+    public function getApiKey()
+    {
+        return $this->object->key->key;
+    }
+
+    private function isUpdatable($object)
+    {
+        if (!$object) {
+            return true;
+        }
+
+        return $object->updated_at->diffInMinutes(Carbon::now()) > 60;
     }
 }

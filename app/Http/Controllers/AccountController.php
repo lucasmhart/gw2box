@@ -2,8 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Src\GWObject;
-use Illuminate\Http\Request;
+use App\Src\GW\Helpers\GWObject;
 use Illuminate\Support\Facades\Auth;
 
 class AccountController extends Controller

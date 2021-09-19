@@ -80,6 +80,7 @@ export default {
     }
   },
   mounted() {
+    this.$root.gw_object.update();
   }
 };
 </script>

@@ -31,11 +31,11 @@ class GWAccount extends Model
 
     public function access()
     {
-        return $this->hasMany(GWAccount_access::class);
+        return $this->hasMany(GWAccount_access::class, 'gw_account_id');
     }
 
     public function guilds()
     {
-        return $this->hasMany(GWAccount_guilds::class);
+        return $this->hasMany(GWAccount_guilds::class, 'gw_account_id');
     }
 }
