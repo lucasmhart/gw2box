@@ -2863,9 +2863,16 @@ var Account = /*#__PURE__*/function () {
       axios__WEBPACK_IMPORTED_MODULE_3___default().get(_helpers_Route__WEBPACK_IMPORTED_MODULE_1__["default"].getRoute('gwapi.account'), {
         _token: _helpers_Token__WEBPACK_IMPORTED_MODULE_2__["default"].get()
       }).then(function (response) {
-        _Object__WEBPACK_IMPORTED_MODULE_0__["default"].set(response.data.object);
-
-        _Object__WEBPACK_IMPORTED_MODULE_0__["default"].update();
+        _Object__WEBPACK_IMPORTED_MODULE_0__["default"].continueUpdating(response);
+      });
+    }
+  }, {
+    key: "updateAchievements",
+    value: function updateAchievements() {
+      axios__WEBPACK_IMPORTED_MODULE_3___default().get(_helpers_Route__WEBPACK_IMPORTED_MODULE_1__["default"].getRoute('gwapi.account.achievements'), {
+        _token: _helpers_Token__WEBPACK_IMPORTED_MODULE_2__["default"].get()
+      }).then(function (response) {
+        _Object__WEBPACK_IMPORTED_MODULE_0__["default"].continueUpdating(response);
       });
     }
   }]);
@@ -2919,6 +2926,13 @@ var _Object = /*#__PURE__*/function () {
       $('#gwo').val(object);
     }
   }, {
+    key: "continueUpdating",
+    value: function continueUpdating(response) {
+      _Object.set(response.data.object);
+
+      _Object.update();
+    }
+  }, {
     key: "update",
     value: function update() {
       if (_Object.get() === false) {
@@ -2929,6 +2943,10 @@ var _Object = /*#__PURE__*/function () {
 
       if (_Object.get().account.is_updatable === true) {
         _Account__WEBPACK_IMPORTED_MODULE_0__["default"].updateAccount();
+      }
+
+      if (_Object.get().account.achievs.is_updatable === true) {
+        _Account__WEBPACK_IMPORTED_MODULE_0__["default"].updateAchievements();
       }
     }
   }]);
@@ -3031,7 +3049,8 @@ _defineProperty(Route, "routes", {
   "user.login": "/user/login",
   "user.updateApiKey": "/user/updateApiKey",
   "user.updatePassword": "/user/updatePassword",
-  "gwapi.account": "/gwapi/account"
+  "gwapi.account": "/gwapi/account",
+  "gwapi.account.achievements": "/gwapi/account/achievements"
 });
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (Route);

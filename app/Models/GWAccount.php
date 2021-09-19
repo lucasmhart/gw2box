@@ -38,4 +38,14 @@ class GWAccount extends Model
     {
         return $this->hasMany(GWAccount_guilds::class, 'gw_account_id');
     }
+
+    public function achievements()
+    {
+        return $this->hasMany(GWAccount_achievement::class, 'gw_account_id');
+    }
+
+    public function updates()
+    {
+        return $this->hasOne(GWAccount_updates::class, 'gw_account_id');
+    }
 }

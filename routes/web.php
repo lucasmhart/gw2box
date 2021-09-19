@@ -32,5 +32,8 @@ Route::prefix('account')->name('account.')->middleware(['auth'])->group(function
 });
 
 Route::prefix('gwapi')->name('gwapi.')->middleware(['auth'])->group(function () {
-    Route::get('/account', [GWAccountController::class, 'account'])->name('account');
+    Route::prefix('account')->group(function () {
+        Route::get('/', [GWAccountController::class, 'account'])->name('account');
+        Route::get('/achievements', [GWAccountController::class, 'achievements'])->name('achievements');
+    });
 });

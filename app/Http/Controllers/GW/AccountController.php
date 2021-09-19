@@ -19,6 +19,18 @@ class AccountController extends Controller
     {
         GWAccount::updateAccount(Auth::user());
 
+        return $this->getObjectResponse();
+    }
+
+    public function achievements()
+    {
+        GWAccount::updateAchievements(Auth::user());
+
+        return $this->getObjectResponse();
+    }
+
+    private function getObjectResponse()
+    {
         $gwObject = (new GWObject(Auth::user()))->getObjectJson();
         return response()->json(['object' => $gwObject], 200);
     }

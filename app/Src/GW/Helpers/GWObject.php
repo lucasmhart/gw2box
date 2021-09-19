@@ -3,6 +3,7 @@
 namespace App\Src\GW\Helpers;
 
 use App\Models\GWAccount;
+use App\Models\GWAccount_achievement;
 use App\Models\User;
 use Carbon\Carbon;
 use stdClass;
@@ -46,13 +47,32 @@ class GWObject
     private function setAccountData()
     {
         $account = GWAccount::where('user_id', $this->user->id)->first();
+
         if ($account) {
             $account->access = $account->access ?? new stdClass();
             $account->guilds = $account->guilds ?? new stdClass();
-            $account->is_updatable = $this->isUpdatable($account);
+            $account->is_updatable = $this->isUpdatable($account->updates, 'account');
+            $account->achievs = [
+                'items' => $this->getAccountAchievements($account),
+                'is_updatable' => $this->isUpdatable($account->updates, 'achievements')
+            ];
         }
 
         return $account;
+    }
+
+    private function getAccountAchievements($account)
+    {
+        $response = [];
+        $achievements = GWAccount_achievement::where('gw_account_id', $account->id)->get();
+
+        foreach ($achievements as $achievement) {
+            $item = $achievement;
+            $item->bits = explode(',', $item->bits);
+            $response[] = $item;
+        }
+
+        return $response;
     }
 
     public function getApiKey()
@@ -60,12 +80,12 @@ class GWObject
         return $this->object->key->key;
     }
 
-    private function isUpdatable($object)
+    private function isUpdatable($object, $field)
     {
-        if (!$object) {
+        if (!isset($object->$field)) {
             return true;
         }
 
-        return $object->updated_at->diffInMinutes(Carbon::now()) > 60;
+        return $object->$field->diffInMinutes(Carbon::now()) > 60;
     }
 }

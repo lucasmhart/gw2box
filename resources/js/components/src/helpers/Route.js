@@ -5,7 +5,8 @@ class Route {
         "user.login": "/user/login",
         "user.updateApiKey": "/user/updateApiKey",
         "user.updatePassword": "/user/updatePassword",
-        "gwapi.account": "/gwapi/account"
+        "gwapi.account": "/gwapi/account",
+        "gwapi.account.achievements": "/gwapi/account/achievements",
     }
 
     constructor() {

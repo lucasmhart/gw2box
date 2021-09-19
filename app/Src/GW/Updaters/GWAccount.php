@@ -4,9 +4,11 @@ namespace App\Src\GW\Updaters;
 
 use App\Models\GWAccount as ModelsGWAccount;
 use App\Models\GWAccount_access;
+use App\Models\GWAccount_achievement;
 use App\Models\GWAccount_guilds;
 use App\Src\GW\Helpers\GWObject;
 use App\Src\GW\Helpers\GWRequest;
+use Exception;
 use Illuminate\Support\Facades\Auth;
 
 class GWAccount
@@ -37,6 +39,41 @@ class GWAccount
 
         self::updateAccountGuilds($account, $response);
         self::updateAccountAccesses($account, $response);
+
+        GWUpdaters::updateAccountUpdater($account->id, 'account');
+    }
+
+    public static function updateAchievements($user)
+    {
+        $response = GWRequest::privateGet(self::getGWObject($user)->getApiKey(), self::getUrl('/achievements'));
+        $account_id = $user->account->id;
+
+        $achievs = [];
+        foreach ($response as $achiev) {
+            $bits = null;
+            if (isset($achiev->bits)) {
+                $bits = implode(',', $achiev->bits);
+            }
+
+            $achiev->gw_account_id = $account_id;
+            $achiev->bits = $bits;
+            $achiev->current = $achiev->current ?? null;
+            $achiev->max = $achiev->max ?? null;
+            $achiev->done = $achiev->done ?? null;
+            $achiev->repeated = $achiev->repeated ?? null;
+            $achiev->unlocked = $achiev->unlocked ?? null;
+
+            $achievs[] = (array) $achiev;
+        }
+
+
+        GWAccount_achievement::upsert(
+            $achievs,
+            ['account_id', 'id'],
+            ['bits', 'current', 'max', 'done', 'repeated', 'unlocked']
+        );
+
+        GWUpdaters::updateAccountUpdater($user->account->id, 'achievements');
     }
 
     private static function updateAccountAccesses($account, $response)

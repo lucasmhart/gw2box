@@ -9,8 +9,15 @@ class Account {
         axios.get(Route.getRoute('gwapi.account'), {
             _token: Token.get(),
         }).then(response => {
-            Object.set(response.data.object);
-            Object.update();
+            Object.continueUpdating(response);
+        });
+    }
+
+    static updateAchievements() {
+        axios.get(Route.getRoute('gwapi.account.achievements'), {
+            _token: Token.get(),
+        }).then(response => {
+            Object.continueUpdating(response);
         });
     }
 }

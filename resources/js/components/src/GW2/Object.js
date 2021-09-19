@@ -17,6 +17,11 @@ class Object {
         $('#gwo').val(object)
     }
 
+    static continueUpdating(response) {
+        Object.set(response.data.object);
+        Object.update();
+    }
+
     static update() {
         if (Object.get() === false){
             return;
@@ -25,6 +30,10 @@ class Object {
         console.log(Object.get().account);
         if (Object.get().account.is_updatable === true) {
             Account.updateAccount();
+        }
+
+        if (Object.get().account.achievs.is_updatable === true) {
+            Account.updateAchievements();
         }
     }
 }
