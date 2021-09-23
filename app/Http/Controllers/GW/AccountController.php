@@ -29,6 +29,13 @@ class AccountController extends Controller
         return $this->getObjectResponse();
     }
 
+    public function bank()
+    {
+        GWAccount::updateBank(Auth::user());
+
+        return $this->getObjectResponse();
+    }
+
     private function getObjectResponse()
     {
         $gwObject = (new GWObject(Auth::user()))->getObjectJson();

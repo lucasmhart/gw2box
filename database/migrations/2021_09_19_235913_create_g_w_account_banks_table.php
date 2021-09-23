@@ -17,8 +17,8 @@ class CreateGWAccountBanksTable extends Migration
             $table->id();
             $table->bigInteger('gw_account_id')->unsigned();
             $table->foreign('gw_account_id')->references('id')->on('gw_accounts');
-            $table->bigInteger('gw_id');
-            $table->integer('count');
+            $table->bigInteger('gw_id')->nullable();
+            $table->integer('count')->nullable();
             $table->integer('charges')->nullable();
             $table->integer('skin')->nullable();
             $table->text('dyes')->nullable();

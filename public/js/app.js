@@ -2875,6 +2875,15 @@ var Account = /*#__PURE__*/function () {
         _Object__WEBPACK_IMPORTED_MODULE_0__["default"].continueUpdating(response);
       });
     }
+  }, {
+    key: "updateBank",
+    value: function updateBank() {
+      axios__WEBPACK_IMPORTED_MODULE_3___default().get(_helpers_Route__WEBPACK_IMPORTED_MODULE_1__["default"].getRoute('gwapi.account.bank'), {
+        _token: _helpers_Token__WEBPACK_IMPORTED_MODULE_2__["default"].get()
+      }).then(function (response) {
+        _Object__WEBPACK_IMPORTED_MODULE_0__["default"].continueUpdating(response);
+      });
+    }
   }]);
 
   return Account;
@@ -2939,14 +2948,19 @@ var _Object = /*#__PURE__*/function () {
         return;
       }
 
-      console.log(_Object.get().account);
+      console.log(_Object.get());
 
       if (_Object.get().account.is_updatable === true) {
+        console.log('account');
         _Account__WEBPACK_IMPORTED_MODULE_0__["default"].updateAccount();
-      }
-
-      if (_Object.get().account.achievs.is_updatable === true) {
+      } else if (_Object.get().account.achievs.is_updatable === true) {
+        console.log('achievments');
         _Account__WEBPACK_IMPORTED_MODULE_0__["default"].updateAchievements();
+      } else if (_Object.get().account.bank.is_updatable === true) {
+        console.log('bank');
+        _Account__WEBPACK_IMPORTED_MODULE_0__["default"].updateBank();
+      } else {
+        console.log('END');
       }
     }
   }]);
@@ -3050,7 +3064,8 @@ _defineProperty(Route, "routes", {
   "user.updateApiKey": "/user/updateApiKey",
   "user.updatePassword": "/user/updatePassword",
   "gwapi.account": "/gwapi/account",
-  "gwapi.account.achievements": "/gwapi/account/achievements"
+  "gwapi.account.achievements": "/gwapi/account/achievements",
+  "gwapi.account.bank": "/gwapi/account/bank"
 });
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (Route);

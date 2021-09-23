@@ -20,6 +20,14 @@ class Account {
             Object.continueUpdating(response);
         });
     }
+
+    static updateBank() {
+        axios.get(Route.getRoute('gwapi.account.bank'), {
+            _token: Token.get(),
+        }).then(response => {
+            Object.continueUpdating(response);
+        });
+    }
 }
 
 export default Account

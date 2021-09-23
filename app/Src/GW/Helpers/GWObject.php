@@ -4,6 +4,7 @@ namespace App\Src\GW\Helpers;
 
 use App\Models\GWAccount;
 use App\Models\GWAccount_achievement;
+use App\Models\GWAccount_bank;
 use App\Models\User;
 use Carbon\Carbon;
 use stdClass;
@@ -56,9 +57,32 @@ class GWObject
                 'items' => $this->getAccountAchievements($account),
                 'is_updatable' => $this->isUpdatable($account->updates, 'achievements')
             ];
+            $account->bank = [
+                'items' => $this->getAccountBank($account),
+                'is_updatable' => $this->isUpdatable($account->updates, 'bank')
+            ];
         }
 
         return $account;
+    }
+
+    private function getAccountBank($account)
+    {
+        $response = [];
+        $bank_items = GWAccount_bank::where('gw_account_id', $account->id)->get();
+
+        foreach ($bank_items as $bank_item) {
+            $item = $bank_item;
+            $item->dyes = json_decode($bank_item->dyes);
+            $item->upgrades = json_decode($bank_item->upgrades);
+            $item->upgrade_slot_indices = json_decode($bank_item->upgrade_slot_indices);
+            $item->infusions = json_decode($bank_item->infusions);
+            $item->stats = json_decode($bank_item->stats);
+
+            $response[] = $item;
+        }
+
+        return $response;
     }
 
     private function getAccountAchievements($account)

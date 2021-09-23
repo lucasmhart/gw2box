@@ -27,13 +27,18 @@ class Object {
             return;
         }
 
-        console.log(Object.get().account);
+        console.log(Object.get());
         if (Object.get().account.is_updatable === true) {
+            console.log('account')
             Account.updateAccount();
-        }
-
-        if (Object.get().account.achievs.is_updatable === true) {
+        } else if (Object.get().account.achievs.is_updatable === true) {
+            console.log('achievments')
             Account.updateAchievements();
+        } else if (Object.get().account.bank.is_updatable === true) {
+            console.log('bank')
+            Account.updateBank();
+        } else {
+            console.log('END')
         }
     }
 }

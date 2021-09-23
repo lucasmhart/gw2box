@@ -5,6 +5,7 @@ namespace App\Src\GW\Updaters;
 use App\Models\GWAccount as ModelsGWAccount;
 use App\Models\GWAccount_access;
 use App\Models\GWAccount_achievement;
+use App\Models\GWAccount_bank;
 use App\Models\GWAccount_guilds;
 use App\Src\GW\Helpers\GWObject;
 use App\Src\GW\Helpers\GWRequest;
@@ -74,6 +75,67 @@ class GWAccount
         );
 
         GWUpdaters::updateAccountUpdater($user->account->id, 'achievements');
+    }
+
+    public static function updateBank($user)
+    {
+        $response = GWRequest::privateGet(self::getGWObject($user)->getApiKey(), self::getUrl('/bank'));
+        $account_id = $user->account->id;
+
+        GWAccount_bank::where(['gw_account_id' => $account_id])->delete();
+
+        foreach ($response as $item) {
+            if (empty($item)) {
+                GWAccount_bank::create(['gw_account_id' => $account_id]);
+                continue;
+            }
+
+            $data = [
+                'gw_account_id' => $account_id,
+                'gw_id' => $item->id,
+                'count' => $item->count,
+            ];
+
+            if (isset($item->charges)) {
+                $data['charges'] = $item->charges;
+            }
+
+            if (isset($item->skin)) {
+                $data['skin'] = $item->skin;
+            }
+
+            if (isset($item->bindings)) {
+                $data['bindings'] = $item->bindings;
+            }
+
+            if (isset($item->binding_to)) {
+                $data['binding_to'] = $item->binding_to;
+            }
+
+            if (isset($item->dyes)) {
+                $data['dyes'] = json_encode($item->dyes);
+            }
+
+            if (isset($item->upgrades)) {
+                $data['upgrades'] = json_encode($item->upgrades);
+            }
+
+            if (isset($item->upgrade_slot_indices)) {
+                $data['upgrade_slot_indices'] = json_encode($item->upgrade_slot_indices);
+            }
+
+            if (isset($item->infusions)) {
+                $data['infusions'] = json_encode($item->infusions);
+            }
+
+            if (isset($item->stats)) {
+                $data['stats'] = json_encode($item->stats);
+            }
+
+            GWAccount_bank::create($data);
+        }
+
+        GWUpdaters::updateAccountUpdater($user->account->id, 'bank');
     }
 
     private static function updateAccountAccesses($account, $response)
