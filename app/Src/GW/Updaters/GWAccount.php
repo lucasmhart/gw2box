@@ -53,7 +53,7 @@ class GWAccount
         foreach ($response as $achiev) {
             $bits = null;
             if (isset($achiev->bits)) {
-                $bits = implode(',', $achiev->bits);
+                $bits = json_encode($achiev->bits);
             }
 
             $achiev->gw_account_id = $account_id;

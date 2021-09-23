@@ -1,20 +1,20 @@
-import Account from './Account'
+import Account from "./Account";
 class Object {
-    constructor() {
-    }
+    constructor() {}
 
     static object = null;
+    static debug = true;
 
     static get() {
         try {
-            return JSON.parse($('#gwo').val());
+            return JSON.parse($("#gwo").val());
         } catch (e) {
             return false;
         }
     }
 
     static set(object) {
-        $('#gwo').val(object)
+        $("#gwo").val(object);
     }
 
     static continueUpdating(response) {
@@ -23,24 +23,49 @@ class Object {
     }
 
     static update() {
-        if (Object.get() === false){
+        if (Object.get() === false) {
             return;
         }
 
-        console.log(Object.get());
         if (Object.get().account.is_updatable === true) {
-            console.log('account')
+            Object.printDebug("account");
             Account.updateAccount();
         } else if (Object.get().account.achievs.is_updatable === true) {
-            console.log('achievments')
+            Object.printDebug("achievments");
             Account.updateAchievements();
         } else if (Object.get().account.bank.is_updatable === true) {
-            console.log('bank')
+            Object.printDebug("bank");
             Account.updateBank();
         } else {
-            console.log('END')
+            Object.printDebug("End sync");
         }
+    }
+
+    static printDebug(step) {
+        const debug = true;
+
+        if (debug) {
+            console.log(step)
+            console.log(Object.getNow());
+            console.log(Object.get());
+        }
+    }
+
+    static getNow() {
+        var currentdate = new Date();
+        return "Last Sync: " +
+            currentdate.getDate() +
+            "/" +
+            (currentdate.getMonth() + 1) +
+            "/" +
+            currentdate.getFullYear() +
+            " @ " +
+            currentdate.getHours() +
+            ":" +
+            currentdate.getMinutes() +
+            ":" +
+            currentdate.getSeconds();
     }
 }
 
-export default Object
+export default Object;

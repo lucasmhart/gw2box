@@ -92,7 +92,7 @@ class GWObject
 
         foreach ($achievements as $achievement) {
             $item = $achievement;
-            $item->bits = explode(',', $item->bits);
+            $item->bits = json_decode($item->bits);
             $response[] = $item;
         }
 

@@ -2924,7 +2924,7 @@ var _Object = /*#__PURE__*/function () {
     key: "get",
     value: function get() {
       try {
-        return JSON.parse($('#gwo').val());
+        return JSON.parse($("#gwo").val());
       } catch (e) {
         return false;
       }
@@ -2932,7 +2932,7 @@ var _Object = /*#__PURE__*/function () {
   }, {
     key: "set",
     value: function set(object) {
-      $('#gwo').val(object);
+      $("#gwo").val(object);
     }
   }, {
     key: "continueUpdating",
@@ -2948,20 +2948,38 @@ var _Object = /*#__PURE__*/function () {
         return;
       }
 
-      console.log(_Object.get());
-
       if (_Object.get().account.is_updatable === true) {
-        console.log('account');
+        _Object.printDebug("account");
+
         _Account__WEBPACK_IMPORTED_MODULE_0__["default"].updateAccount();
       } else if (_Object.get().account.achievs.is_updatable === true) {
-        console.log('achievments');
+        _Object.printDebug("achievments");
+
         _Account__WEBPACK_IMPORTED_MODULE_0__["default"].updateAchievements();
       } else if (_Object.get().account.bank.is_updatable === true) {
-        console.log('bank');
+        _Object.printDebug("bank");
+
         _Account__WEBPACK_IMPORTED_MODULE_0__["default"].updateBank();
       } else {
-        console.log('END');
+        _Object.printDebug("End sync");
       }
+    }
+  }, {
+    key: "printDebug",
+    value: function printDebug(step) {
+      var debug = true;
+
+      if (debug) {
+        console.log(step);
+        console.log(_Object.getNow());
+        console.log(_Object.get());
+      }
+    }
+  }, {
+    key: "getNow",
+    value: function getNow() {
+      var currentdate = new Date();
+      return "Last Sync: " + currentdate.getDate() + "/" + (currentdate.getMonth() + 1) + "/" + currentdate.getFullYear() + " @ " + currentdate.getHours() + ":" + currentdate.getMinutes() + ":" + currentdate.getSeconds();
     }
   }]);
 
@@ -2969,6 +2987,8 @@ var _Object = /*#__PURE__*/function () {
 }();
 
 _defineProperty(Object, "object", null);
+
+_defineProperty(Object, "debug", true);
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (_Object);
 
