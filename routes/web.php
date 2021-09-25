@@ -36,5 +36,6 @@ Route::prefix('gwapi')->name('gwapi.')->middleware(['auth'])->group(function () 
         Route::get('/', [GWAccountController::class, 'account'])->name('account');
         Route::get('/achievements', [GWAccountController::class, 'achievements'])->name('achievements');
         Route::get('/bank', [GWAccountController::class, 'bank'])->name('bank');
+        Route::get('/dailycrafting', [GWAccountController::class, 'dailycrafting'])->name('dailycrafting');
     });
 });

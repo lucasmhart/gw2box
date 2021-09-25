@@ -61,6 +61,10 @@ class GWObject
                 'items' => $this->getAccountBank($account),
                 'is_updatable' => $this->isUpdatable($account->updates, 'bank')
             ];
+            $account->dailycrafting = [
+                'items' => $this->getAccountDailycrafting($account),
+                'is_updatable' => $this->isUpdatable($account->updates, 'dailycrafting')
+            ];
         }
 
         return $account;
@@ -111,5 +115,19 @@ class GWObject
         }
 
         return $object->$field->diffInMinutes(Carbon::now()) > 60;
+    }
+
+    private function getAccountDailycrafting($account)
+    {
+        $response = [];
+        $dailyCraftings = GWAccount_achievement::where('gw_account_id', $account->id)->get();
+
+        foreach ($dailyCraftings as $dailyCrafting) {
+            $item = $dailyCrafting;
+            // $item->bits = json_decode($item->bits);
+            // $response[] = $item;
+        }
+
+        return $response;
     }
 }

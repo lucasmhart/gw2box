@@ -2728,10 +2728,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _src_helpers_Token__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @/src/helpers/Token */ "./resources/js/components/src/helpers/Token.js");
 /* harmony import */ var _src_helpers_Auth__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @/src/helpers/Auth */ "./resources/js/components/src/helpers/Auth.js");
 /* harmony import */ var _src_GW2_Object__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @/src/GW2/Object */ "./resources/js/components/src/GW2/Object.js");
-/* harmony import */ var _src_GW2_Account__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @/src/GW2/Account */ "./resources/js/components/src/GW2/Account.js");
-/* harmony import */ var sweetalert2__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! sweetalert2 */ "./node_modules/sweetalert2/dist/sweetalert2.all.js");
-/* harmony import */ var sweetalert2__WEBPACK_IMPORTED_MODULE_5___default = /*#__PURE__*/__webpack_require__.n(sweetalert2__WEBPACK_IMPORTED_MODULE_5__);
-/* harmony import */ var sweetalert2_src_sweetalert2_scss__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! sweetalert2/src/sweetalert2.scss */ "./node_modules/sweetalert2/src/sweetalert2.scss");
+/* harmony import */ var sweetalert2__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! sweetalert2 */ "./node_modules/sweetalert2/dist/sweetalert2.all.js");
+/* harmony import */ var sweetalert2__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(sweetalert2__WEBPACK_IMPORTED_MODULE_4__);
+/* harmony import */ var sweetalert2_src_sweetalert2_scss__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! sweetalert2/src/sweetalert2.scss */ "./node_modules/sweetalert2/src/sweetalert2.scss");
 /**
  * First we will load all of this project's JavaScript dependencies which
  * includes Vue and other libraries. It is a great starting point when
@@ -2740,7 +2739,6 @@ __webpack_require__.r(__webpack_exports__);
 __webpack_require__(/*! ./bootstrap */ "./resources/js/bootstrap.js");
 
 window.Vue = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.esm.js")["default"];
-
 
 
 
@@ -2772,9 +2770,8 @@ var app = new Vue({
       routes: _src_helpers_Route__WEBPACK_IMPORTED_MODULE_0__["default"],
       token: _src_helpers_Token__WEBPACK_IMPORTED_MODULE_1__["default"],
       auth: _src_helpers_Auth__WEBPACK_IMPORTED_MODULE_2__["default"],
-      swal: (sweetalert2__WEBPACK_IMPORTED_MODULE_5___default()),
-      gw_object: _src_GW2_Object__WEBPACK_IMPORTED_MODULE_3__["default"],
-      gw_account: _src_GW2_Account__WEBPACK_IMPORTED_MODULE_4__["default"]
+      swal: (sweetalert2__WEBPACK_IMPORTED_MODULE_4___default()),
+      gw_object: _src_GW2_Object__WEBPACK_IMPORTED_MODULE_3__["default"]
     };
   }
 });
@@ -2825,74 +2822,6 @@ window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
 
 /***/ }),
 
-/***/ "./resources/js/components/src/GW2/Account.js":
-/*!****************************************************!*\
-  !*** ./resources/js/components/src/GW2/Account.js ***!
-  \****************************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
-/* harmony export */ });
-/* harmony import */ var _Object__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./Object */ "./resources/js/components/src/GW2/Object.js");
-/* harmony import */ var _helpers_Route__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../helpers/Route */ "./resources/js/components/src/helpers/Route.js");
-/* harmony import */ var _helpers_Token__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../helpers/Token */ "./resources/js/components/src/helpers/Token.js");
-/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
-/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_3__);
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
-
-function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
-
-
-
-
-
-
-var Account = /*#__PURE__*/function () {
-  function Account() {
-    _classCallCheck(this, Account);
-  }
-
-  _createClass(Account, null, [{
-    key: "updateAccount",
-    value: function updateAccount() {
-      axios__WEBPACK_IMPORTED_MODULE_3___default().get(_helpers_Route__WEBPACK_IMPORTED_MODULE_1__["default"].getRoute('gwapi.account'), {
-        _token: _helpers_Token__WEBPACK_IMPORTED_MODULE_2__["default"].get()
-      }).then(function (response) {
-        _Object__WEBPACK_IMPORTED_MODULE_0__["default"].continueUpdating(response);
-      });
-    }
-  }, {
-    key: "updateAchievements",
-    value: function updateAchievements() {
-      axios__WEBPACK_IMPORTED_MODULE_3___default().get(_helpers_Route__WEBPACK_IMPORTED_MODULE_1__["default"].getRoute('gwapi.account.achievements'), {
-        _token: _helpers_Token__WEBPACK_IMPORTED_MODULE_2__["default"].get()
-      }).then(function (response) {
-        _Object__WEBPACK_IMPORTED_MODULE_0__["default"].continueUpdating(response);
-      });
-    }
-  }, {
-    key: "updateBank",
-    value: function updateBank() {
-      axios__WEBPACK_IMPORTED_MODULE_3___default().get(_helpers_Route__WEBPACK_IMPORTED_MODULE_1__["default"].getRoute('gwapi.account.bank'), {
-        _token: _helpers_Token__WEBPACK_IMPORTED_MODULE_2__["default"].get()
-      }).then(function (response) {
-        _Object__WEBPACK_IMPORTED_MODULE_0__["default"].continueUpdating(response);
-      });
-    }
-  }]);
-
-  return Account;
-}();
-
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (Account);
-
-/***/ }),
-
 /***/ "./resources/js/components/src/GW2/Object.js":
 /*!***************************************************!*\
   !*** ./resources/js/components/src/GW2/Object.js ***!
@@ -2904,7 +2833,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
-/* harmony import */ var _Account__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./Account */ "./resources/js/components/src/GW2/Account.js");
+/* harmony import */ var _helpers_Route__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../helpers/Route */ "./resources/js/components/src/helpers/Route.js");
+/* harmony import */ var _helpers_Token__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../helpers/Token */ "./resources/js/components/src/helpers/Token.js");
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
 function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
@@ -2912,6 +2842,7 @@ function _defineProperties(target, props) { for (var i = 0; i < props.length; i+
 function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
 
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
 
 
 
@@ -2949,17 +2880,13 @@ var _Object = /*#__PURE__*/function () {
       }
 
       if (_Object.get().account.is_updatable === true) {
-        _Object.printDebug("account");
-
-        _Account__WEBPACK_IMPORTED_MODULE_0__["default"].updateAccount();
+        _Object.requestUpdate('gwapi.account');
       } else if (_Object.get().account.achievs.is_updatable === true) {
-        _Object.printDebug("achievments");
-
-        _Account__WEBPACK_IMPORTED_MODULE_0__["default"].updateAchievements();
+        _Object.requestUpdate('gwapi.account.achievements');
       } else if (_Object.get().account.bank.is_updatable === true) {
-        _Object.printDebug("bank");
-
-        _Account__WEBPACK_IMPORTED_MODULE_0__["default"].updateBank();
+        _Object.requestUpdate('gwapi.account.bank');
+      } else if (_Object.get().account.dailycrafting.is_updatable === true) {
+        _Object.requestUpdate('gwapi.account.dailycrafting');
       } else {
         _Object.printDebug("End sync");
       }
@@ -2980,6 +2907,17 @@ var _Object = /*#__PURE__*/function () {
     value: function getNow() {
       var currentdate = new Date();
       return "Last Sync: " + currentdate.getDate() + "/" + (currentdate.getMonth() + 1) + "/" + currentdate.getFullYear() + " @ " + currentdate.getHours() + ":" + currentdate.getMinutes() + ":" + currentdate.getSeconds();
+    }
+  }, {
+    key: "requestUpdate",
+    value: function requestUpdate(routePath) {
+      _Object.printDebug(routePath);
+
+      axios.get(_helpers_Route__WEBPACK_IMPORTED_MODULE_0__["default"].getRoute(routePath), {
+        _token: _helpers_Token__WEBPACK_IMPORTED_MODULE_1__["default"].get()
+      }).then(function (response) {
+        _Object.continueUpdating(response);
+      });
     }
   }]);
 
@@ -3085,7 +3023,8 @@ _defineProperty(Route, "routes", {
   "user.updatePassword": "/user/updatePassword",
   "gwapi.account": "/gwapi/account",
   "gwapi.account.achievements": "/gwapi/account/achievements",
-  "gwapi.account.bank": "/gwapi/account/bank"
+  "gwapi.account.bank": "/gwapi/account/bank",
+  "gwapi.account.dailycrafting": "/gwapi/account/dailycrafting"
 });
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (Route);

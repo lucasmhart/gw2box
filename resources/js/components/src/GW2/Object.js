@@ -1,4 +1,6 @@
-import Account from "./Account";
+import Route from '../helpers/Route'
+import Token from '../helpers/Token'
+
 class Object {
     constructor() {}
 
@@ -28,14 +30,13 @@ class Object {
         }
 
         if (Object.get().account.is_updatable === true) {
-            Object.printDebug("account");
-            Account.updateAccount();
+            Object.requestUpdate('gwapi.account');
         } else if (Object.get().account.achievs.is_updatable === true) {
-            Object.printDebug("achievments");
-            Account.updateAchievements();
+            Object.requestUpdate('gwapi.account.achievements');
         } else if (Object.get().account.bank.is_updatable === true) {
-            Object.printDebug("bank");
-            Account.updateBank();
+            Object.requestUpdate('gwapi.account.bank');
+        } else if (Object.get().account.dailycrafting.is_updatable === true) {
+            Object.requestUpdate('gwapi.account.dailycrafting');
         } else {
             Object.printDebug("End sync");
         }
@@ -65,6 +66,15 @@ class Object {
             currentdate.getMinutes() +
             ":" +
             currentdate.getSeconds();
+    }
+
+    static requestUpdate(routePath) {
+        Object.printDebug(routePath);
+        axios.get(Route.getRoute(routePath), {
+            _token: Token.get(),
+        }).then(response => {
+            Object.continueUpdating(response);
+        });
     }
 }
 

@@ -12,7 +12,6 @@ import Route from "@/src/helpers/Route";
 import Token from "@/src/helpers/Token";
 import Auth from "@/src/helpers/Auth";
 import GWObject from "@/src/GW2/Object";
-import GWAccount from "@/src/GW2/Account";
 
 import Swal from 'sweetalert2'
 
@@ -47,7 +46,6 @@ const app = new Vue({
             auth: Auth,
             swal: Swal,
             gw_object: GWObject,
-            gw_account: GWAccount,
         }
     }
 });

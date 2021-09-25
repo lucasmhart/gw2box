@@ -6,6 +6,7 @@ use App\Models\GWAccount as ModelsGWAccount;
 use App\Models\GWAccount_access;
 use App\Models\GWAccount_achievement;
 use App\Models\GWAccount_bank;
+use App\Models\GWAccount_dailycrafting;
 use App\Models\GWAccount_guilds;
 use App\Src\GW\Helpers\GWObject;
 use App\Src\GW\Helpers\GWRequest;
@@ -188,5 +189,15 @@ class GWAccount
     private static function setGWObject($user)
     {
         self::$gw_object = new GWObject($user);
+    }
+
+    public static function updateDailycrafting($user)
+    {
+        $response = GWRequest::privateGet(self::getGWObject($user)->getApiKey(), self::getUrl('/dailycrafting'));
+        GWAccount_dailycrafting::create([
+            'gw_account_id' => $user->account->id,
+            'items' => json_encode($response)
+        ]);
+        GWUpdaters::updateAccountUpdater($user->account->id, 'dailycrafting');
     }
 }
