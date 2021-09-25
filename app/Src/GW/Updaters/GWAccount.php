@@ -7,6 +7,7 @@ use App\Models\GWAccount_access;
 use App\Models\GWAccount_achievement;
 use App\Models\GWAccount_bank;
 use App\Models\GWAccount_dailycrafting;
+use App\Models\GWAccount_dungeon;
 use App\Models\GWAccount_guilds;
 use App\Src\GW\Helpers\GWObject;
 use App\Src\GW\Helpers\GWRequest;
@@ -193,11 +194,23 @@ class GWAccount
 
     public static function updateDailycrafting($user)
     {
+        GWAccount_dailycrafting::where('gw_account_id', $user->account->id)->delete();
         $response = GWRequest::privateGet(self::getGWObject($user)->getApiKey(), self::getUrl('/dailycrafting'));
         GWAccount_dailycrafting::create([
             'gw_account_id' => $user->account->id,
             'items' => json_encode($response)
         ]);
         GWUpdaters::updateAccountUpdater($user->account->id, 'dailycrafting');
+    }
+
+    public static function updateDungeons($user)
+    {
+        GWAccount_dungeon::where('gw_account_id', $user->account->id)->delete();
+        $response = GWRequest::privateGet(self::getGWObject($user)->getApiKey(), self::getUrl('/dungeons'));
+        GWAccount_dungeon::create([
+            'gw_account_id' => $user->account->id,
+            'dungeons' => json_encode($response)
+        ]);
+        GWUpdaters::updateAccountUpdater($user->account->id, 'dungeons');
     }
 }

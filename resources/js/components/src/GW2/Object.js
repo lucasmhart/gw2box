@@ -37,6 +37,8 @@ class Object {
             Object.requestUpdate('gwapi.account.bank');
         } else if (Object.get().account.dailycrafting.is_updatable === true) {
             Object.requestUpdate('gwapi.account.dailycrafting');
+        } else if (Object.get().account.dungeons.is_updatable === true) {
+            Object.requestUpdate('gwapi.account.dungeons');
         } else {
             Object.printDebug("End sync");
         }

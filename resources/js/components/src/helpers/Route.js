@@ -9,6 +9,7 @@ class Route {
         "gwapi.account.achievements": "/gwapi/account/achievements",
         "gwapi.account.bank": "/gwapi/account/bank",
         "gwapi.account.dailycrafting": "/gwapi/account/dailycrafting",
+        "gwapi.account.dungeons": "/gwapi/account/dungeons",
     }
 
     constructor() {

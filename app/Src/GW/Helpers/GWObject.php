@@ -5,6 +5,8 @@ namespace App\Src\GW\Helpers;
 use App\Models\GWAccount;
 use App\Models\GWAccount_achievement;
 use App\Models\GWAccount_bank;
+use App\Models\GWAccount_dailycrafting;
+use App\Models\GWAccount_dungeon;
 use App\Models\User;
 use Carbon\Carbon;
 use stdClass;
@@ -65,6 +67,10 @@ class GWObject
                 'items' => $this->getAccountDailycrafting($account),
                 'is_updatable' => $this->isUpdatable($account->updates, 'dailycrafting')
             ];
+            $account->dungeons = [
+                'items' => $this->getAccountDungeons($account),
+                'is_updatable' => $this->isUpdatable($account->updates, 'dungeons')
+            ];
         }
 
         return $account;
@@ -119,15 +125,13 @@ class GWObject
 
     private function getAccountDailycrafting($account)
     {
-        $response = [];
-        $dailyCraftings = GWAccount_achievement::where('gw_account_id', $account->id)->get();
+        $dailyCraftings = GWAccount_dailycrafting::where('gw_account_id', $account->id)->first();
+        return json_decode($dailyCraftings->items);
+    }
 
-        foreach ($dailyCraftings as $dailyCrafting) {
-            $item = $dailyCrafting;
-            // $item->bits = json_decode($item->bits);
-            // $response[] = $item;
-        }
-
-        return $response;
+    private function getAccountDungeons($account)
+    {
+        $dungeons = GWAccount_dungeon::where('gw_account_id', $account->id)->first();
+        return json_decode($dungeons->dungeons);
     }
 }
