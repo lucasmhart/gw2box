@@ -126,12 +126,18 @@ class GWObject
     private function getAccountDailycrafting($account)
     {
         $dailyCraftings = GWAccount_dailycrafting::where('gw_account_id', $account->id)->first();
+        if (!$dailyCraftings) {
+            return [];
+        }
         return json_decode($dailyCraftings->items);
     }
 
     private function getAccountDungeons($account)
     {
         $dungeons = GWAccount_dungeon::where('gw_account_id', $account->id)->first();
+        if (!$dungeons) {
+            return [];
+        }
         return json_decode($dungeons->dungeons);
     }
 }
