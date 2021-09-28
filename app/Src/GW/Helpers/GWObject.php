@@ -8,6 +8,7 @@ use App\Models\GWAccount_bank;
 use App\Models\GWAccount_dailycrafting;
 use App\Models\GWAccount_dungeon;
 use App\Models\GWAccount_dyes;
+use App\Models\GWAccount_emotes;
 use App\Models\User;
 use Carbon\Carbon;
 use stdClass;
@@ -75,6 +76,10 @@ class GWObject
             $account->dyes = [
                 'items' => $this->getAccountDyes($account),
                 'is_updatable' => $this->isUpdatable($account->updates, 'dyes')
+            ];
+            $account->emotes = [
+                'items' => $this->getAccountEmotes($account),
+                'is_updatable' => $this->isUpdatable($account->updates, 'emotes')
             ];
         }
 
@@ -148,10 +153,19 @@ class GWObject
 
     private function getAccountDyes($account)
     {
-        $dungeons = GWAccount_dyes::where('gw_account_id', $account->id)->first();
-        if (!$dungeons) {
+        $dyes = GWAccount_dyes::where('gw_account_id', $account->id)->first();
+        if (!$dyes) {
             return [];
         }
-        return json_decode($dungeons->dungeons);
+        return json_decode($dyes->dyes);
+    }
+
+    private function getAccountEmotes($account)
+    {
+        $emotes = GWAccount_emotes::where('gw_account_id', $account->id)->first();
+        if (!$emotes) {
+            return [];
+        }
+        return json_decode($emotes->emotes);
     }
 }

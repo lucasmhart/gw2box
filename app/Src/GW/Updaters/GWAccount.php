@@ -9,6 +9,7 @@ use App\Models\GWAccount_bank;
 use App\Models\GWAccount_dailycrafting;
 use App\Models\GWAccount_dungeon;
 use App\Models\GWAccount_dyes;
+use App\Models\GWAccount_emotes;
 use App\Models\GWAccount_guilds;
 use App\Src\GW\Helpers\GWObject;
 use App\Src\GW\Helpers\GWRequest;
@@ -223,6 +224,18 @@ class GWAccount
         );
 
         GWUpdaters::updateAccountUpdater($user->account->id, 'dyes');
+    }
+
+    public static function updateEmotes($user)
+    {
+        $response = self::get($user, '/emotes');
+
+        GWAccount_emotes::updateOrCreate(
+            ['gw_account_id' => $user->account->id],
+            ['emotes' => json_encode($response)]
+        );
+
+        GWUpdaters::updateAccountUpdater($user->account->id, 'emotes');
     }
 
     public static function get($user, $path)

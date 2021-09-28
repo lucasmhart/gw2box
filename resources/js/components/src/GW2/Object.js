@@ -41,6 +41,8 @@ class Object {
             Object.requestUpdate('gwapi.account.dungeons');
         } else if (Object.get().account.dyes.is_updatable === true) {
             Object.requestUpdate('gwapi.account.dyes');
+        } else if (Object.get().account.emotes.is_updatable === true) {
+            Object.requestUpdate('gwapi.account.emotes');
         } else {
             Object.printDebug("End sync");
         }
