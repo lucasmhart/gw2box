@@ -9,6 +9,7 @@ use App\Models\GWAccount_dailycrafting;
 use App\Models\GWAccount_dungeon;
 use App\Models\GWAccount_dyes;
 use App\Models\GWAccount_emotes;
+use App\Models\GWAccount_finishers;
 use App\Models\User;
 use Carbon\Carbon;
 use stdClass;
@@ -80,6 +81,10 @@ class GWObject
             $account->emotes = [
                 'items' => $this->getAccountEmotes($account),
                 'is_updatable' => $this->isUpdatable($account->updates, 'emotes')
+            ];
+            $account->finishers = [
+                'items' => $this->getAccountFinishers($account),
+                'is_updatable' => $this->isUpdatable($account->updates, 'finishers')
             ];
         }
 
@@ -167,5 +172,14 @@ class GWObject
             return [];
         }
         return json_decode($emotes->emotes);
+    }
+
+    private function getAccountFinishers($account)
+    {
+        $finishers = GWAccount_finishers::where('gw_account_id', $account->id)->first();
+        if (!$finishers) {
+            return [];
+        }
+        return json_decode($finishers->finishers);
     }
 }

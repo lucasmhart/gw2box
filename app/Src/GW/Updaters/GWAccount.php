@@ -10,6 +10,7 @@ use App\Models\GWAccount_dailycrafting;
 use App\Models\GWAccount_dungeon;
 use App\Models\GWAccount_dyes;
 use App\Models\GWAccount_emotes;
+use App\Models\GWAccount_finishers;
 use App\Models\GWAccount_guilds;
 use App\Src\GW\Helpers\GWObject;
 use App\Src\GW\Helpers\GWRequest;
@@ -236,6 +237,18 @@ class GWAccount
         );
 
         GWUpdaters::updateAccountUpdater($user->account->id, 'emotes');
+    }
+
+    public static function updateFinishers($user)
+    {
+        $response = self::get($user, '/finishers');
+
+        GWAccount_finishers::updateOrCreate(
+            ['gw_account_id' => $user->account->id],
+            ['finishers' => json_encode($response)]
+        );
+
+        GWUpdaters::updateAccountUpdater($user->account->id, 'finishers');
     }
 
     public static function get($user, $path)

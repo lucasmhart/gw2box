@@ -40,5 +40,6 @@ Route::prefix('gwapi')->name('gwapi.')->middleware(['auth'])->group(function () 
         Route::get('/dungeons', [GWAccountController::class, 'dungeons'])->name('dungeons');
         Route::get('/dyes', [GWAccountController::class, 'dyes'])->name('dyes');
         Route::get('/emotes', [GWAccountController::class, 'emotes'])->name('emotes');
+        Route::get('/finishers', [GWAccountController::class, 'finishers'])->name('finishers');
     });
 });
