@@ -13,6 +13,7 @@ use App\Models\GWAccount_emotes;
 use App\Models\GWAccount_finishers;
 use App\Models\GWAccount_gliders;
 use App\Models\GWAccount_guilds;
+use App\Models\GWAccount_home_nodes;
 use App\Src\GW\Helpers\GWObject;
 use App\Src\GW\Helpers\GWRequest;
 use Exception;
@@ -262,6 +263,18 @@ class GWAccount
         );
 
         GWUpdaters::updateAccountUpdater($user->account->id, 'gliders');
+    }
+
+    public static function updateHomeNodes($user)
+    {
+        $response = self::get($user, '/home/nodes');
+
+        GWAccount_home_nodes::updateOrCreate(
+            ['gw_account_id' => $user->account->id],
+            ['nodes' => json_encode($response)]
+        );
+
+        GWUpdaters::updateAccountUpdater($user->account->id, 'home_nodes');
     }
 
     public static function get($user, $path)

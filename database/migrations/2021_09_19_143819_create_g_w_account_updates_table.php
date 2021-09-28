@@ -20,14 +20,12 @@ class CreateGWAccountUpdatesTable extends Migration
             $table->dateTime('account')->nullable();
             $table->dateTime('achievements')->nullable();
             $table->dateTime('bank')->nullable();
-            $table->dateTime('buildstorage')->nullable();
             $table->dateTime('dailycrafting')->nullable();
             $table->dateTime('dungeons')->nullable();
             $table->dateTime('dyes')->nullable();
             $table->dateTime('emotes')->nullable();
             $table->dateTime('finishers')->nullable();
             $table->dateTime('gliders')->nullable();
-            $table->dateTime('home')->nullable();
             $table->dateTime('home_cats')->nullable();
             $table->dateTime('home_nodes')->nullable();
             $table->dateTime('inventory')->nullable();

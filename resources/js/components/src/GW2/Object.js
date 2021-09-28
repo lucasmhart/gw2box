@@ -47,6 +47,8 @@ class Object {
             Object.requestUpdate('gwapi.account.finishers');
         } else if (Object.get().account.gliders.is_updatable === true) {
             Object.requestUpdate('gwapi.account.gliders');
+        } else if (Object.get().account.home_nodes.is_updatable === true) {
+            Object.requestUpdate('gwapi.account.home_nodes');
         } else {
             Object.printDebug("End sync");
         }

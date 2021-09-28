@@ -14,6 +14,7 @@ class Route {
         "gwapi.account.emotes": "/gwapi/account/emotes",
         "gwapi.account.finishers": "/gwapi/account/finishers",
         "gwapi.account.gliders": "/gwapi/account/gliders",
+        "gwapi.account.home_nodes": "/gwapi/account/home_nodes",
     }
 
     constructor() {

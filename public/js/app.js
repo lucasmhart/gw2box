@@ -2897,6 +2897,8 @@ var _Object = /*#__PURE__*/function () {
         _Object.requestUpdate('gwapi.account.finishers');
       } else if (_Object.get().account.gliders.is_updatable === true) {
         _Object.requestUpdate('gwapi.account.gliders');
+      } else if (_Object.get().account.home_nodes.is_updatable === true) {
+        _Object.requestUpdate('gwapi.account.home_nodes');
       } else {
         _Object.printDebug("End sync");
       }
@@ -3039,7 +3041,8 @@ _defineProperty(Route, "routes", {
   "gwapi.account.dyes": "/gwapi/account/dyes",
   "gwapi.account.emotes": "/gwapi/account/emotes",
   "gwapi.account.finishers": "/gwapi/account/finishers",
-  "gwapi.account.gliders": "/gwapi/account/gliders"
+  "gwapi.account.gliders": "/gwapi/account/gliders",
+  "gwapi.account.home_nodes": "/gwapi/account/home_nodes"
 });
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (Route);

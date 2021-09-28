@@ -11,6 +11,7 @@ use App\Models\GWAccount_dyes;
 use App\Models\GWAccount_emotes;
 use App\Models\GWAccount_finishers;
 use App\Models\GWAccount_gliders;
+use App\Models\GWAccount_home_nodes;
 use App\Models\User;
 use Carbon\Carbon;
 use stdClass;
@@ -90,6 +91,10 @@ class GWObject
             $account->gliders = [
                 'items' => $this->getAccountGliders($account),
                 'is_updatable' => $this->isUpdatable($account->updates, 'gliders')
+            ];
+            $account->home_nodes = [
+                'items' => $this->getAccountHomeNodes($account),
+                'is_updatable' => $this->isUpdatable($account->updates, 'home_nodes')
             ];
         }
 
@@ -195,5 +200,14 @@ class GWObject
             return [];
         }
         return json_decode($gliders->gliders);
+    }
+
+    private function getAccountHomeNodes($account)
+    {
+        $home_nodes = GWAccount_home_nodes::where('gw_account_id', $account->id)->first();
+        if (!$home_nodes) {
+            return [];
+        }
+        return json_decode($home_nodes->nodes);
     }
 }
