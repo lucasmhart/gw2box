@@ -11,6 +11,7 @@ use App\Models\GWAccount_dungeon;
 use App\Models\GWAccount_dyes;
 use App\Models\GWAccount_emotes;
 use App\Models\GWAccount_finishers;
+use App\Models\GWAccount_gliders;
 use App\Models\GWAccount_guilds;
 use App\Src\GW\Helpers\GWObject;
 use App\Src\GW\Helpers\GWRequest;
@@ -249,6 +250,18 @@ class GWAccount
         );
 
         GWUpdaters::updateAccountUpdater($user->account->id, 'finishers');
+    }
+
+    public static function updateGliders($user)
+    {
+        $response = self::get($user, '/gliders');
+
+        GWAccount_gliders::updateOrCreate(
+            ['gw_account_id' => $user->account->id],
+            ['gliders' => json_encode($response)]
+        );
+
+        GWUpdaters::updateAccountUpdater($user->account->id, 'gliders');
     }
 
     public static function get($user, $path)

@@ -10,6 +10,7 @@ use App\Models\GWAccount_dungeon;
 use App\Models\GWAccount_dyes;
 use App\Models\GWAccount_emotes;
 use App\Models\GWAccount_finishers;
+use App\Models\GWAccount_gliders;
 use App\Models\User;
 use Carbon\Carbon;
 use stdClass;
@@ -85,6 +86,10 @@ class GWObject
             $account->finishers = [
                 'items' => $this->getAccountFinishers($account),
                 'is_updatable' => $this->isUpdatable($account->updates, 'finishers')
+            ];
+            $account->gliders = [
+                'items' => $this->getAccountGliders($account),
+                'is_updatable' => $this->isUpdatable($account->updates, 'gliders')
             ];
         }
 
@@ -181,5 +186,14 @@ class GWObject
             return [];
         }
         return json_decode($finishers->finishers);
+    }
+
+    private function getAccountGliders($account)
+    {
+        $gliders = GWAccount_gliders::where('gw_account_id', $account->id)->first();
+        if (!$gliders) {
+            return [];
+        }
+        return json_decode($gliders->gliders);
     }
 }

@@ -13,6 +13,7 @@ class Route {
         "gwapi.account.dyes": "/gwapi/account/dyes",
         "gwapi.account.emotes": "/gwapi/account/emotes",
         "gwapi.account.finishers": "/gwapi/account/finishers",
+        "gwapi.account.gliders": "/gwapi/account/gliders",
     }
 
     constructor() {

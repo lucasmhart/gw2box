@@ -71,6 +71,13 @@ class AccountController extends Controller
         return $this->getObjectResponse();
     }
 
+    public function gliders()
+    {
+        GWAccount::updateGliders(Auth::user());
+
+        return $this->getObjectResponse();
+    }
+
     private function getObjectResponse()
     {
         $gwObject = (new GWObject(Auth::user()))->getObjectJson();

@@ -45,6 +45,8 @@ class Object {
             Object.requestUpdate('gwapi.account.emotes');
         } else if (Object.get().account.finishers.is_updatable === true) {
             Object.requestUpdate('gwapi.account.finishers');
+        } else if (Object.get().account.gliders.is_updatable === true) {
+            Object.requestUpdate('gwapi.account.gliders');
         } else {
             Object.printDebug("End sync");
         }
