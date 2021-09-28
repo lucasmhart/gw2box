@@ -45,7 +45,7 @@ const app = new Vue({
             token: Token,
             auth: Auth,
             swal: Swal,
-            gw_object: GWObject,
+            gw_object: GWObject
         }
     }
 });

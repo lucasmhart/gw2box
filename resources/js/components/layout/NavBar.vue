@@ -44,7 +44,7 @@
               aria-haspopup="true"
               aria-expanded="false"
             >
-              Profile
+              <i class="fas fa-sync fa-spin mr-2" v-if="isUpdating"></i> Profile
             </a>
             <div class="dropdown-menu" aria-labelledby="navbarDropdown">
               <a class="dropdown-item" href="#" @click="openModalApiKey()"><i class="fas fa-key fa-fw"></i> Api Key</a>
@@ -66,8 +66,14 @@
 import authModal from "@/auth/Modal";
 import apiKeyModal from "@/api_key/Modal";
 import passwordModal from "@/password/Modal";
+import bus from '@/bus';
 export default {
   components: { authModal, apiKeyModal, passwordModal },
+  data() {
+    return {
+      isUpdating: true
+    }
+  },
   methods: {
     openModalLogin() {
       $("#authModal").modal("show");
@@ -81,6 +87,11 @@ export default {
   },
   mounted() {
     this.$root.gw_object.update();
+  },
+  created() {
+    bus.whenIsObjectUpdatingChange(value => {
+      this.isUpdating = value;
+    })
   }
 };
 </script>

@@ -2455,6 +2455,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _auth_Modal__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @/auth/Modal */ "./resources/js/components/auth/Modal.vue");
 /* harmony import */ var _api_key_Modal__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @/api_key/Modal */ "./resources/js/components/api_key/Modal.vue");
 /* harmony import */ var _password_Modal__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @/password/Modal */ "./resources/js/components/password/Modal.vue");
+/* harmony import */ var _bus__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @/bus */ "./resources/js/components/bus.js");
 //
 //
 //
@@ -2519,6 +2520,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+
 
 
 
@@ -2527,6 +2529,11 @@ __webpack_require__.r(__webpack_exports__);
     authModal: _auth_Modal__WEBPACK_IMPORTED_MODULE_0__["default"],
     apiKeyModal: _api_key_Modal__WEBPACK_IMPORTED_MODULE_1__["default"],
     passwordModal: _password_Modal__WEBPACK_IMPORTED_MODULE_2__["default"]
+  },
+  data: function data() {
+    return {
+      isUpdating: true
+    };
   },
   methods: {
     openModalLogin: function openModalLogin() {
@@ -2541,6 +2548,13 @@ __webpack_require__.r(__webpack_exports__);
   },
   mounted: function mounted() {
     this.$root.gw_object.update();
+  },
+  created: function created() {
+    var _this = this;
+
+    _bus__WEBPACK_IMPORTED_MODULE_3__["default"].whenIsObjectUpdatingChange(function (value) {
+      _this.isUpdating = value;
+    });
   }
 });
 
@@ -2822,6 +2836,32 @@ window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
 
 /***/ }),
 
+/***/ "./resources/js/components/bus.js":
+/*!****************************************!*\
+  !*** ./resources/js/components/bus.js ***!
+  \****************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.esm.js");
+
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (new vue__WEBPACK_IMPORTED_MODULE_0__["default"]({
+  methods: {
+    setIsObjectUpdating: function setIsObjectUpdating(value) {
+      this.$emit('changeIsObjectUpdating', value);
+    },
+    whenIsObjectUpdatingChange: function whenIsObjectUpdatingChange(callback) {
+      this.$on('changeIsObjectUpdating', callback);
+    }
+  }
+}));
+
+/***/ }),
+
 /***/ "./resources/js/components/src/GW2/Object.js":
 /*!***************************************************!*\
   !*** ./resources/js/components/src/GW2/Object.js ***!
@@ -2835,6 +2875,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var _helpers_Route__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../helpers/Route */ "./resources/js/components/src/helpers/Route.js");
 /* harmony import */ var _helpers_Token__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../helpers/Token */ "./resources/js/components/src/helpers/Token.js");
+/* harmony import */ var _bus_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../bus.js */ "./resources/js/components/bus.js");
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
 function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
@@ -2842,6 +2883,7 @@ function _defineProperties(target, props) { for (var i = 0; i < props.length; i+
 function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
 
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
 
 
 
@@ -2900,6 +2942,8 @@ var _Object = /*#__PURE__*/function () {
       } else if (_Object.get().account.home_nodes.is_updatable === true) {
         _Object.requestUpdate('gwapi.account.home_nodes');
       } else {
+        _bus_js__WEBPACK_IMPORTED_MODULE_2__["default"].setIsObjectUpdating(false);
+
         _Object.printDebug("End sync");
       }
     }
@@ -2913,6 +2957,11 @@ var _Object = /*#__PURE__*/function () {
         console.log(_Object.getNow());
         console.log(_Object.get());
       }
+    }
+  }, {
+    key: "checkIsUpdating",
+    value: function checkIsUpdating() {
+      return _Object.isUpdating;
     }
   }, {
     key: "getNow",
@@ -2939,6 +2988,8 @@ var _Object = /*#__PURE__*/function () {
 _defineProperty(Object, "object", null);
 
 _defineProperty(Object, "debug", true);
+
+_defineProperty(Object, "isUpdating", true);
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (_Object);
 
@@ -43524,7 +43575,12 @@ var render = function() {
                           "aria-expanded": "false"
                         }
                       },
-                      [_vm._v("\n            Profile\n          ")]
+                      [
+                        _vm.isUpdating
+                          ? _c("i", { staticClass: "fas fa-sync fa-spin mr-2" })
+                          : _vm._e(),
+                        _vm._v(" Profile\n          ")
+                      ]
                     ),
                     _vm._v(" "),
                     _c(

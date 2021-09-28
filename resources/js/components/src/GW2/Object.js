@@ -1,11 +1,13 @@
 import Route from '../helpers/Route'
 import Token from '../helpers/Token'
+import bus from '../../bus.js'
 
 class Object {
     constructor() {}
 
     static object = null;
     static debug = true;
+    static isUpdating = true;
 
     static get() {
         try {
@@ -50,6 +52,7 @@ class Object {
         } else if (Object.get().account.home_nodes.is_updatable === true) {
             Object.requestUpdate('gwapi.account.home_nodes');
         } else {
+            bus.setIsObjectUpdating(false);
             Object.printDebug("End sync");
         }
     }
@@ -62,6 +65,10 @@ class Object {
             console.log(Object.getNow());
             console.log(Object.get());
         }
+    }
+
+    static checkIsUpdating() {
+        return Object.isUpdating
     }
 
     static getNow() {
