@@ -8,6 +8,7 @@ use App\Models\GWAccount_achievement;
 use App\Models\GWAccount_bank;
 use App\Models\GWAccount_dailycrafting;
 use App\Models\GWAccount_dungeon;
+use App\Models\GWAccount_dyes;
 use App\Models\GWAccount_guilds;
 use App\Src\GW\Helpers\GWObject;
 use App\Src\GW\Helpers\GWRequest;
@@ -48,7 +49,7 @@ class GWAccount
 
     public static function updateAchievements($user)
     {
-        $response = GWRequest::privateGet(self::getGWObject($user)->getApiKey(), self::getUrl('/achievements'));
+        $response = self::get($user, '/achievements');
         $account_id = $user->account->id;
 
         $achievs = [];
@@ -81,7 +82,7 @@ class GWAccount
 
     public static function updateBank($user)
     {
-        $response = GWRequest::privateGet(self::getGWObject($user)->getApiKey(), self::getUrl('/bank'));
+        $response = self::get($user, '/bank');
         $account_id = $user->account->id;
 
         GWAccount_bank::where(['gw_account_id' => $account_id])->delete();
@@ -195,10 +196,10 @@ class GWAccount
     public static function updateDailycrafting($user)
     {
         GWAccount_dailycrafting::where('gw_account_id', $user->account->id)->delete();
-        $response = GWRequest::privateGet(self::getGWObject($user)->getApiKey(), self::getUrl('/dailycrafting'));
+
         GWAccount_dailycrafting::create([
             'gw_account_id' => $user->account->id,
-            'items' => json_encode($response)
+            'items' => json_encode(self::get($user, '/dailycrafting'))
         ]);
         GWUpdaters::updateAccountUpdater($user->account->id, 'dailycrafting');
     }
@@ -206,11 +207,26 @@ class GWAccount
     public static function updateDungeons($user)
     {
         GWAccount_dungeon::where('gw_account_id', $user->account->id)->delete();
-        $response = GWRequest::privateGet(self::getGWObject($user)->getApiKey(), self::getUrl('/dungeons'));
+
         GWAccount_dungeon::create([
             'gw_account_id' => $user->account->id,
-            'dungeons' => json_encode($response)
+            'dungeons' => json_encode(self::get($user, '/dungeons'))
         ]);
         GWUpdaters::updateAccountUpdater($user->account->id, 'dungeons');
+    }
+
+    public static function updateDyes($user)
+    {
+        GWAccount_dyes::updateOrCreate(
+            ['gw_account_id' => $user->account->id],
+            ['dyes' => json_encode(self::get($user, '/dyes'))]
+        );
+
+        GWUpdaters::updateAccountUpdater($user->account->id, 'dyes');
+    }
+
+    public static function get($user, $path)
+    {
+        return GWRequest::privateGet(self::getGWObject($user)->getApiKey(), self::getUrl($path));
     }
 }

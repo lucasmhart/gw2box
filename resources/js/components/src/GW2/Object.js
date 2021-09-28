@@ -39,6 +39,8 @@ class Object {
             Object.requestUpdate('gwapi.account.dailycrafting');
         } else if (Object.get().account.dungeons.is_updatable === true) {
             Object.requestUpdate('gwapi.account.dungeons');
+        } else if (Object.get().account.dyes.is_updatable === true) {
+            Object.requestUpdate('gwapi.account.dyes');
         } else {
             Object.printDebug("End sync");
         }

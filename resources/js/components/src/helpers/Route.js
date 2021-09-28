@@ -10,6 +10,7 @@ class Route {
         "gwapi.account.bank": "/gwapi/account/bank",
         "gwapi.account.dailycrafting": "/gwapi/account/dailycrafting",
         "gwapi.account.dungeons": "/gwapi/account/dungeons",
+        "gwapi.account.dyes": "/gwapi/account/dyes",
     }
 
     constructor() {

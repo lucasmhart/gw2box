@@ -50,6 +50,13 @@ class AccountController extends Controller
         return $this->getObjectResponse();
     }
 
+    public function dyes()
+    {
+        GWAccount::updateDyes(Auth::user());
+
+        return $this->getObjectResponse();
+    }
+
     private function getObjectResponse()
     {
         $gwObject = (new GWObject(Auth::user()))->getObjectJson();

@@ -2889,6 +2889,8 @@ var _Object = /*#__PURE__*/function () {
         _Object.requestUpdate('gwapi.account.dailycrafting');
       } else if (_Object.get().account.dungeons.is_updatable === true) {
         _Object.requestUpdate('gwapi.account.dungeons');
+      } else if (_Object.get().account.dyes.is_updatable === true) {
+        _Object.requestUpdate('gwapi.account.dyes');
       } else {
         _Object.printDebug("End sync");
       }
@@ -3027,7 +3029,8 @@ _defineProperty(Route, "routes", {
   "gwapi.account.achievements": "/gwapi/account/achievements",
   "gwapi.account.bank": "/gwapi/account/bank",
   "gwapi.account.dailycrafting": "/gwapi/account/dailycrafting",
-  "gwapi.account.dungeons": "/gwapi/account/dungeons"
+  "gwapi.account.dungeons": "/gwapi/account/dungeons",
+  "gwapi.account.dyes": "/gwapi/account/dyes"
 });
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (Route);

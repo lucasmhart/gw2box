@@ -7,6 +7,7 @@ use App\Models\GWAccount_achievement;
 use App\Models\GWAccount_bank;
 use App\Models\GWAccount_dailycrafting;
 use App\Models\GWAccount_dungeon;
+use App\Models\GWAccount_dyes;
 use App\Models\User;
 use Carbon\Carbon;
 use stdClass;
@@ -70,6 +71,10 @@ class GWObject
             $account->dungeons = [
                 'items' => $this->getAccountDungeons($account),
                 'is_updatable' => $this->isUpdatable($account->updates, 'dungeons')
+            ];
+            $account->dyes = [
+                'items' => $this->getAccountDyes($account),
+                'is_updatable' => $this->isUpdatable($account->updates, 'dyes')
             ];
         }
 
@@ -135,6 +140,15 @@ class GWObject
     private function getAccountDungeons($account)
     {
         $dungeons = GWAccount_dungeon::where('gw_account_id', $account->id)->first();
+        if (!$dungeons) {
+            return [];
+        }
+        return json_decode($dungeons->dungeons);
+    }
+
+    private function getAccountDyes($account)
+    {
+        $dungeons = GWAccount_dyes::where('gw_account_id', $account->id)->first();
         if (!$dungeons) {
             return [];
         }
