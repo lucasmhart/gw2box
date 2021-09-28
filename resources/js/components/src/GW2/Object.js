@@ -51,6 +51,10 @@ class Object {
             Object.requestUpdate('gwapi.account.gliders');
         } else if (Object.get().account.home_nodes.is_updatable === true) {
             Object.requestUpdate('gwapi.account.home_nodes');
+        } else if (Object.get().account.home_cats.is_updatable === true) {
+            Object.requestUpdate('gwapi.account.home_cats');
+        } else if (Object.get().account.inventory.is_updatable === true) {
+            Object.requestUpdate('gwapi.account.inventory');
         } else {
             bus.setIsObjectUpdating(false);
             Object.printDebug("End sync");

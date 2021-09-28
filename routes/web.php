@@ -43,5 +43,7 @@ Route::prefix('gwapi')->name('gwapi.')->middleware(['auth'])->group(function () 
         Route::get('/finishers', [GWAccountController::class, 'finishers'])->name('finishers');
         Route::get('/gliders', [GWAccountController::class, 'gliders'])->name('gliders');
         Route::get('/home_nodes', [GWAccountController::class, 'homeNodes'])->name('home_nodes');
+        Route::get('/home_cats', [GWAccountController::class, 'homeCats'])->name('home_cats');
+        Route::get('/inventory', [GWAccountController::class, 'inventory'])->name('inventory');
     });
 });

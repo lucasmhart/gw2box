@@ -15,6 +15,8 @@ class Route {
         "gwapi.account.finishers": "/gwapi/account/finishers",
         "gwapi.account.gliders": "/gwapi/account/gliders",
         "gwapi.account.home_nodes": "/gwapi/account/home_nodes",
+        "gwapi.account.home_cats": "/gwapi/account/home_cats",
+        "gwapi.account.inventory": "/gwapi/account/inventory",
     }
 
     constructor() {

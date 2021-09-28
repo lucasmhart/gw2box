@@ -11,7 +11,9 @@ use App\Models\GWAccount_dyes;
 use App\Models\GWAccount_emotes;
 use App\Models\GWAccount_finishers;
 use App\Models\GWAccount_gliders;
+use App\Models\GWAccount_home_cats;
 use App\Models\GWAccount_home_nodes;
+use App\Models\GWAccount_inventory;
 use App\Models\User;
 use Carbon\Carbon;
 use stdClass;
@@ -95,6 +97,14 @@ class GWObject
             $account->home_nodes = [
                 'items' => $this->getAccountHomeNodes($account),
                 'is_updatable' => $this->isUpdatable($account->updates, 'home_nodes')
+            ];
+            $account->home_cats = [
+                'items' => $this->getAccountHomeCats($account),
+                'is_updatable' => $this->isUpdatable($account->updates, 'home_cats')
+            ];
+            $account->inventory = [
+                'items' => $this->getAccountInventory($account),
+                'is_updatable' => $this->isUpdatable($account->updates, 'inventory')
             ];
         }
 
@@ -209,5 +219,49 @@ class GWObject
             return [];
         }
         return json_decode($home_nodes->nodes);
+    }
+
+    private function getAccountHomeCats($account)
+    {
+        $home_cats = GWAccount_home_cats::where('gw_account_id', $account->id)->first();
+        if (!$home_cats) {
+            return [];
+        }
+        return json_decode($home_cats->cats);
+    }
+
+    private function getAccountInventory($account)
+    {
+        $account_inventories = GWAccount_inventory::where('gw_account_id', $account->id)->get();
+
+        if (empty($account_inventories)) {
+            return [];
+        }
+
+        $inventories = [];
+        foreach ($account_inventories as $account_inventory) {
+            if (empty($account_inventory)) {
+                $inventories[] = [];
+                continue;
+            }
+
+            $inventory = new stdClass();
+            $inventory->gw_id = $account_inventory->gw_id;
+            $inventory->count = $account_inventory->count;
+            $inventory->charges = $account_inventory->charges;
+            $inventory->skin = $account_inventory->skin;
+            $inventory->binding = $account_inventory->binding;
+
+            if ($account_inventory->upgrades) {
+                $inventory->upgrades = json_decode($account_inventory->upgrades);
+            }
+
+            if ($account_inventory->infusions) {
+                $inventory->infusions = json_decode($account_inventory->infusions);
+            }
+
+            $inventories[] = $inventory;
+        }
+        return $inventories;
     }
 }

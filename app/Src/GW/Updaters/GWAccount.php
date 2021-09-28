@@ -13,7 +13,9 @@ use App\Models\GWAccount_emotes;
 use App\Models\GWAccount_finishers;
 use App\Models\GWAccount_gliders;
 use App\Models\GWAccount_guilds;
+use App\Models\GWAccount_home_cats;
 use App\Models\GWAccount_home_nodes;
+use App\Models\GWAccount_inventory;
 use App\Src\GW\Helpers\GWObject;
 use App\Src\GW\Helpers\GWRequest;
 use Exception;
@@ -275,6 +277,54 @@ class GWAccount
         );
 
         GWUpdaters::updateAccountUpdater($user->account->id, 'home_nodes');
+    }
+
+    public static function updateHomeCats($user)
+    {
+        $response = self::get($user, '/home/cats');
+
+        GWAccount_home_cats::updateOrCreate(
+            ['gw_account_id' => $user->account->id],
+            ['cats' => json_encode($response)]
+        );
+
+        GWUpdaters::updateAccountUpdater($user->account->id, 'home_cats');
+    }
+
+    public static function updateInventory($user)
+    {
+        $response = self::get($user, '/inventory');
+        GWAccount_inventory::where('gw_account_id', $user->account->id)->delete();
+
+        foreach ($response as $item) {
+            $data = ['gw_account_id' => $user->account->id];
+
+            if (isset($item->id)) {
+                $data['gw_id'] = $item->id;
+            }
+            if (isset($item->count)) {
+                $data['count'] = $item->count;
+            }
+            if (isset($item->charges)) {
+                $data['charges'] = $item->charges;
+            }
+            if (isset($item->skin)) {
+                $data['skin'] = $item->skin;
+            }
+            if (isset($item->binding)) {
+                $data['binding'] = $item->binding;
+            }
+            if (isset($item->upgrades)) {
+                $data['upgrades'] = json_encode($item->upgrades);
+            }
+            if (isset($item->infusions)) {
+                $data['infusions'] = json_encode($item->infusions);
+            }
+
+            GWAccount_inventory::create($data);
+        }
+
+        GWUpdaters::updateAccountUpdater($user->account->id, 'inventory');
     }
 
     public static function get($user, $path)
