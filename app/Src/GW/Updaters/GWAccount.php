@@ -16,6 +16,7 @@ use App\Models\GWAccount_guilds;
 use App\Models\GWAccount_home_cats;
 use App\Models\GWAccount_home_nodes;
 use App\Models\GWAccount_inventory;
+use App\Models\GWAccount_legendaryarmory;
 use App\Src\GW\Helpers\GWObject;
 use App\Src\GW\Helpers\GWRequest;
 use Exception;
@@ -325,6 +326,22 @@ class GWAccount
         }
 
         GWUpdaters::updateAccountUpdater($user->account->id, 'inventory');
+    }
+
+    public static function updateLegendaryarmory($user)
+    {
+        $response = self::get($user, '/legendaryarmory');
+        GWAccount_legendaryarmory::where('gw_account_id', $user->account->id)->delete();
+
+        foreach ($response as $item) {
+            GWAccount_legendaryarmory::create([
+                'gw_account_id' => $user->account->id,
+                'gw_id' => $item->id,
+                'count' => $item->count,
+            ]);
+        }
+
+        GWUpdaters::updateAccountUpdater($user->account->id, 'legendaryarmory');
     }
 
     public static function get($user, $path)

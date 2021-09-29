@@ -55,6 +55,8 @@ class Object {
             Object.requestUpdate('gwapi.account.home_cats');
         } else if (Object.get().account.inventory.is_updatable === true) {
             Object.requestUpdate('gwapi.account.inventory');
+        } else if (Object.get().account.legendaryarmory.is_updatable === true) {
+            Object.requestUpdate('gwapi.account.legendaryarmory');
         } else {
             bus.setIsObjectUpdating(false);
             Object.printDebug("End sync");

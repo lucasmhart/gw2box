@@ -2945,6 +2945,8 @@ var _Object = /*#__PURE__*/function () {
         _Object.requestUpdate('gwapi.account.home_cats');
       } else if (_Object.get().account.inventory.is_updatable === true) {
         _Object.requestUpdate('gwapi.account.inventory');
+      } else if (_Object.get().account.legendaryarmory.is_updatable === true) {
+        _Object.requestUpdate('gwapi.account.legendaryarmory');
       } else {
         _bus_js__WEBPACK_IMPORTED_MODULE_2__["default"].setIsObjectUpdating(false);
 
@@ -3099,7 +3101,8 @@ _defineProperty(Route, "routes", {
   "gwapi.account.gliders": "/gwapi/account/gliders",
   "gwapi.account.home_nodes": "/gwapi/account/home_nodes",
   "gwapi.account.home_cats": "/gwapi/account/home_cats",
-  "gwapi.account.inventory": "/gwapi/account/inventory"
+  "gwapi.account.inventory": "/gwapi/account/inventory",
+  "gwapi.account.legendaryarmory": "/gwapi/account/legendaryarmory"
 });
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (Route);

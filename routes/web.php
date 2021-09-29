@@ -45,5 +45,6 @@ Route::prefix('gwapi')->name('gwapi.')->middleware(['auth'])->group(function () 
         Route::get('/home_nodes', [GWAccountController::class, 'homeNodes'])->name('home_nodes');
         Route::get('/home_cats', [GWAccountController::class, 'homeCats'])->name('home_cats');
         Route::get('/inventory', [GWAccountController::class, 'inventory'])->name('inventory');
+        Route::get('/legendaryarmory', [GWAccountController::class, 'legendaryarmory'])->name('legendaryarmory');
     });
 });

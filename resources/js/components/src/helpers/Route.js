@@ -17,6 +17,7 @@ class Route {
         "gwapi.account.home_nodes": "/gwapi/account/home_nodes",
         "gwapi.account.home_cats": "/gwapi/account/home_cats",
         "gwapi.account.inventory": "/gwapi/account/inventory",
+        "gwapi.account.legendaryarmory": "/gwapi/account/legendaryarmory",
     }
 
     constructor() {

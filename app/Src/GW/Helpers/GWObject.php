@@ -14,6 +14,7 @@ use App\Models\GWAccount_gliders;
 use App\Models\GWAccount_home_cats;
 use App\Models\GWAccount_home_nodes;
 use App\Models\GWAccount_inventory;
+use App\Models\GWAccount_legendaryarmory;
 use App\Models\User;
 use Carbon\Carbon;
 use stdClass;
@@ -105,6 +106,10 @@ class GWObject
             $account->inventory = [
                 'items' => $this->getAccountInventory($account),
                 'is_updatable' => $this->isUpdatable($account->updates, 'inventory')
+            ];
+            $account->legendaryarmory = [
+                'items' => $this->getAccountLegendaryarmory($account),
+                'is_updatable' => $this->isUpdatable($account->updates, 'legendaryarmory')
             ];
         }
 
@@ -263,5 +268,10 @@ class GWObject
             $inventories[] = $inventory;
         }
         return $inventories;
+    }
+
+    private function getAccountLegendaryarmory($account)
+    {
+        return GWAccount_legendaryarmory::where('gw_account_id', $account->id)->get();
     }
 }
