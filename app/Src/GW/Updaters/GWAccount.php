@@ -52,6 +52,8 @@ class GWAccount
         self::updateAccountAccesses($account, $response);
 
         GWUpdaters::updateAccountUpdater($account->id, 'account');
+
+        self::updateLuck($user);
     }
 
     public static function updateAchievements($user)
@@ -342,6 +344,16 @@ class GWAccount
         }
 
         GWUpdaters::updateAccountUpdater($user->account->id, 'legendaryarmory');
+    }
+
+    public static function updateLuck($user)
+    {
+        $response = self::get($user, '/luck');
+        if ($response) {
+            $account = $user->account;
+            $account->luck = $response[0]->value;
+            $account->save();
+        }
     }
 
     public static function get($user, $path)

@@ -28,7 +28,6 @@ class GWAccount_updates extends Model
         'home_nodes',
         'inventory',
         'legendaryarmory',
-        'luck',
         'mailcarriers',
         'mapchests',
         'masteries',

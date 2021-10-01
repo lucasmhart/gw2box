@@ -22,6 +22,7 @@ class GWAccount extends Model
         'monthly_ap',
         'wvw_rank',
         'last_modified',
+        'luck',
     ];
 
     public function user()
