@@ -17,6 +17,7 @@ use App\Models\GWAccount_home_cats;
 use App\Models\GWAccount_home_nodes;
 use App\Models\GWAccount_inventory;
 use App\Models\GWAccount_legendaryarmory;
+use App\Models\GWAccount_mailcarriers;
 use App\Src\GW\Helpers\GWObject;
 use App\Src\GW\Helpers\GWRequest;
 use Exception;
@@ -359,5 +360,17 @@ class GWAccount
     public static function get($user, $path)
     {
         return GWRequest::privateGet(self::getGWObject($user)->getApiKey(), self::getUrl($path));
+    }
+
+    public static function updateMailcarriers($user)
+    {
+        $response = self::get($user, '/mailcarriers');
+
+        GWAccount_mailcarriers::updateOrCreate(
+            ['gw_account_id' => $user->account->id],
+            ['mailcarriers' => json_encode($response)]
+        );
+
+        GWUpdaters::updateAccountUpdater($user->account->id, 'mailcarriers');
     }
 }

@@ -18,6 +18,7 @@ class Route {
         "gwapi.account.home_cats": "/gwapi/account/home_cats",
         "gwapi.account.inventory": "/gwapi/account/inventory",
         "gwapi.account.legendaryarmory": "/gwapi/account/legendaryarmory",
+        "gwapi.account.mailcarriers": "/gwapi/account/mailcarriers",
     }
 
     constructor() {

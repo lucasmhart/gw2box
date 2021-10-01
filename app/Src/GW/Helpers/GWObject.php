@@ -15,6 +15,7 @@ use App\Models\GWAccount_home_cats;
 use App\Models\GWAccount_home_nodes;
 use App\Models\GWAccount_inventory;
 use App\Models\GWAccount_legendaryarmory;
+use App\Models\GWAccount_mailcarriers;
 use App\Models\User;
 use Carbon\Carbon;
 use stdClass;
@@ -110,6 +111,10 @@ class GWObject
             $account->legendaryarmory = [
                 'items' => $this->getAccountLegendaryarmory($account),
                 'is_updatable' => $this->isUpdatable($account->updates, 'legendaryarmory')
+            ];
+            $account->mailcarriers = [
+                'items' => $this->getAccountMailcarriers($account),
+                'is_updatable' => $this->isUpdatable($account->updates, 'mailcarriers')
             ];
         }
 
@@ -273,5 +278,14 @@ class GWObject
     private function getAccountLegendaryarmory($account)
     {
         return GWAccount_legendaryarmory::where('gw_account_id', $account->id)->get();
+    }
+
+    private function getAccountMailcarriers($account)
+    {
+        $mailcarriers = GWAccount_mailcarriers::where('gw_account_id', $account->id)->first();
+        if (!$mailcarriers) {
+            return [];
+        }
+        return json_decode($mailcarriers->mailcarriers);
     }
 }
