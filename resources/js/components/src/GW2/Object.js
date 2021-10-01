@@ -59,6 +59,8 @@ class Object {
             Object.requestUpdate('gwapi.account.legendaryarmory');
         } else if (Object.get().account.mailcarriers.is_updatable === true) {
             Object.requestUpdate('gwapi.account.mailcarriers');
+        } else if (Object.get().account.mapchests.is_updatable === true) {
+            Object.requestUpdate('gwapi.account.mapchests');
         } else {
             bus.setIsObjectUpdating(false);
             Object.printDebug("End sync");

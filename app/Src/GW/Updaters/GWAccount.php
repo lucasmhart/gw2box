@@ -18,6 +18,7 @@ use App\Models\GWAccount_home_nodes;
 use App\Models\GWAccount_inventory;
 use App\Models\GWAccount_legendaryarmory;
 use App\Models\GWAccount_mailcarriers;
+use App\Models\GWAccount_mapchests;
 use App\Src\GW\Helpers\GWObject;
 use App\Src\GW\Helpers\GWRequest;
 use Exception;
@@ -372,5 +373,17 @@ class GWAccount
         );
 
         GWUpdaters::updateAccountUpdater($user->account->id, 'mailcarriers');
+    }
+
+    public static function updateMapchests($user)
+    {
+        $response = self::get($user, '/mapchests');
+
+        GWAccount_mapchests::updateOrCreate(
+            ['gw_account_id' => $user->account->id],
+            ['mapchests' => json_encode($response)]
+        );
+
+        GWUpdaters::updateAccountUpdater($user->account->id, 'mapchests');
     }
 }
