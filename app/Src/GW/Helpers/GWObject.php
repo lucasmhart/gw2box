@@ -18,6 +18,7 @@ use App\Models\GWAccount_legendaryarmory;
 use App\Models\GWAccount_mailcarriers;
 use App\Models\GWAccount_mapchests;
 use App\Models\GWAccount_masteries;
+use App\Models\GWAccount_masterypoints;
 use App\Models\User;
 use Carbon\Carbon;
 use stdClass;
@@ -125,6 +126,10 @@ class GWObject
             $account->masteries = [
                 'items' => $this->getAccountMasteries($account),
                 'is_updatable' => $this->isUpdatable($account->updates, 'masteries')
+            ];
+            $account->masterypoints = [
+                'item' => $this->getAccountMasteryPoints($account),
+                'is_updatable' => $this->isUpdatable($account->updates, 'mastery_points')
             ];
         }
 
@@ -311,5 +316,17 @@ class GWObject
     private function getAccountMasteries($account)
     {
         return GWAccount_masteries::where('gw_account_id', $account->id)->get();
+    }
+
+    private function getAccountMasteryPoints($account)
+    {
+        $resource = GWAccount_masterypoints::where('gw_account_id', $account->id)->first();
+        if (!$resource) {
+            return null;
+        }
+
+        $resource->totals = json_decode($resource->totals);
+        $resource->unlocked = json_decode($resource->unlocked);
+        return $resource;
     }
 }

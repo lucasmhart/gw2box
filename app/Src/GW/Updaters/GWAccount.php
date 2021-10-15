@@ -20,6 +20,7 @@ use App\Models\GWAccount_legendaryarmory;
 use App\Models\GWAccount_mailcarriers;
 use App\Models\GWAccount_mapchests;
 use App\Models\GWAccount_masteries;
+use App\Models\GWAccount_masterypoints;
 use App\Src\GW\Helpers\GWObject;
 use App\Src\GW\Helpers\GWRequest;
 use Exception;
@@ -403,5 +404,20 @@ class GWAccount
         }
 
         GWUpdaters::updateAccountUpdater($user->account->id, 'masteries');
+    }
+
+    public static function updateMasteryPoints($user)
+    {
+        $response = self::get($user, '/mastery/points');
+
+        GWAccount_masterypoints::updateOrCreate(
+            ['gw_account_id' => $user->account->id],
+            [
+                'totals' => json_encode($response->totals),
+                'unlocked' => json_encode($response->unlocked)
+            ]
+        );
+
+        GWUpdaters::updateAccountUpdater($user->account->id, 'mastery_points');
     }
 }

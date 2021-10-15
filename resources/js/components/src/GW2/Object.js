@@ -63,6 +63,8 @@ class Object {
             Object.requestUpdate('gwapi.account.mapchests');
         } else if (Object.get().account.masteries.is_updatable === true) {
             Object.requestUpdate('gwapi.account.masteries');
+        } else if (Object.get().account.masterypoints.is_updatable === true) {
+            Object.requestUpdate('gwapi.account.masterypoints');
         } else {
             bus.setIsObjectUpdating(false);
             Object.printDebug("End sync");

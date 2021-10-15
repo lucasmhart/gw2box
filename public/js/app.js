@@ -2953,6 +2953,8 @@ var _Object = /*#__PURE__*/function () {
         _Object.requestUpdate('gwapi.account.mapchests');
       } else if (_Object.get().account.masteries.is_updatable === true) {
         _Object.requestUpdate('gwapi.account.masteries');
+      } else if (_Object.get().account.masterypoints.is_updatable === true) {
+        _Object.requestUpdate('gwapi.account.masterypoints');
       } else {
         _bus_js__WEBPACK_IMPORTED_MODULE_2__["default"].setIsObjectUpdating(false);
 
@@ -3111,7 +3113,8 @@ _defineProperty(Route, "routes", {
   "gwapi.account.legendaryarmory": "/gwapi/account/legendaryarmory",
   "gwapi.account.mailcarriers": "/gwapi/account/mailcarriers",
   "gwapi.account.mapchests": "/gwapi/account/mapchests",
-  "gwapi.account.masteries": "/gwapi/account/masteries"
+  "gwapi.account.masteries": "/gwapi/account/masteries",
+  "gwapi.account.masterypoints": "/gwapi/account/masterypoints"
 });
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (Route);

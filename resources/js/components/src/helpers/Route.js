@@ -21,6 +21,7 @@ class Route {
         "gwapi.account.mailcarriers": "/gwapi/account/mailcarriers",
         "gwapi.account.mapchests": "/gwapi/account/mapchests",
         "gwapi.account.masteries": "/gwapi/account/masteries",
+        "gwapi.account.masterypoints": "/gwapi/account/masterypoints",
     }
 
     constructor() {

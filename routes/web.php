@@ -49,5 +49,6 @@ Route::prefix('gwapi')->name('gwapi.')->middleware(['auth'])->group(function () 
         Route::get('/mailcarriers', [GWAccountController::class, 'mailcarriers'])->name('mailcarriers');
         Route::get('/mapchests', [GWAccountController::class, 'mapchests'])->name('mapchests');
         Route::get('/masteries', [GWAccountController::class, 'masteries'])->name('masteries');
+        Route::get('/masterypoints', [GWAccountController::class, 'masterypoints'])->name('masterypoints');
     });
 });
