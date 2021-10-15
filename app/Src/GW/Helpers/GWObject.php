@@ -17,6 +17,7 @@ use App\Models\GWAccount_inventory;
 use App\Models\GWAccount_legendaryarmory;
 use App\Models\GWAccount_mailcarriers;
 use App\Models\GWAccount_mapchests;
+use App\Models\GWAccount_masteries;
 use App\Models\User;
 use Carbon\Carbon;
 use stdClass;
@@ -120,6 +121,10 @@ class GWObject
             $account->mapchests = [
                 'items' => $this->getAccountMapchests($account),
                 'is_updatable' => $this->isUpdatable($account->updates, 'mapchests')
+            ];
+            $account->masteries = [
+                'items' => $this->getAccountMasteries($account),
+                'is_updatable' => $this->isUpdatable($account->updates, 'masteries')
             ];
         }
 
@@ -301,5 +306,10 @@ class GWObject
             return [];
         }
         return json_decode($resource->mapchests);
+    }
+
+    private function getAccountMasteries($account)
+    {
+        return GWAccount_masteries::where('gw_account_id', $account->id)->get();
     }
 }

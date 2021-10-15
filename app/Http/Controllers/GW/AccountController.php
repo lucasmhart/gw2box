@@ -120,6 +120,13 @@ class AccountController extends Controller
         return $this->getObjectResponse();
     }
 
+    public function masteries()
+    {
+        GWAccount::updateMasteries(Auth::user());
+
+        return $this->getObjectResponse();
+    }
+
     private function getObjectResponse()
     {
         $gwObject = (new GWObject(Auth::user()))->getObjectJson();

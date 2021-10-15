@@ -19,6 +19,7 @@ use App\Models\GWAccount_inventory;
 use App\Models\GWAccount_legendaryarmory;
 use App\Models\GWAccount_mailcarriers;
 use App\Models\GWAccount_mapchests;
+use App\Models\GWAccount_masteries;
 use App\Src\GW\Helpers\GWObject;
 use App\Src\GW\Helpers\GWRequest;
 use Exception;
@@ -385,5 +386,22 @@ class GWAccount
         );
 
         GWUpdaters::updateAccountUpdater($user->account->id, 'mapchests');
+    }
+
+    public static function updateMasteries($user)
+    {
+        $response = self::get($user, '/masteries');
+
+        foreach ($response as $item) {
+            GWAccount_masteries::updateOrCreate(
+                [
+                    'gw_account_id' => $user->account->id,
+                    'gw_id' => $item->id
+                ],
+                ['level' => $item->level]
+            );
+        }
+
+        GWUpdaters::updateAccountUpdater($user->account->id, 'masteries');
     }
 }

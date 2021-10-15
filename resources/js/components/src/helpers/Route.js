@@ -20,6 +20,7 @@ class Route {
         "gwapi.account.legendaryarmory": "/gwapi/account/legendaryarmory",
         "gwapi.account.mailcarriers": "/gwapi/account/mailcarriers",
         "gwapi.account.mapchests": "/gwapi/account/mapchests",
+        "gwapi.account.masteries": "/gwapi/account/masteries",
     }
 
     constructor() {
