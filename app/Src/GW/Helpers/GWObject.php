@@ -19,6 +19,7 @@ use App\Models\GWAccount_mailcarriers;
 use App\Models\GWAccount_mapchests;
 use App\Models\GWAccount_masteries;
 use App\Models\GWAccount_masterypoints;
+use App\Models\GWAccount_materials;
 use App\Models\User;
 use Carbon\Carbon;
 use stdClass;
@@ -130,6 +131,10 @@ class GWObject
             $account->masterypoints = [
                 'item' => $this->getAccountMasteryPoints($account),
                 'is_updatable' => $this->isUpdatable($account->updates, 'mastery_points')
+            ];
+            $account->materials = [
+                'item' => $this->getAccountMaterials($account),
+                'is_updatable' => $this->isUpdatable($account->updates, 'materials')
             ];
         }
 
@@ -328,5 +333,10 @@ class GWObject
         $resource->totals = json_decode($resource->totals);
         $resource->unlocked = json_decode($resource->unlocked);
         return $resource;
+    }
+
+    private function getAccountMaterials($account)
+    {
+        return GWAccount_materials::where('gw_account_id', $account->id)->get();
     }
 }

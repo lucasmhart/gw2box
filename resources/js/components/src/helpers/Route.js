@@ -22,6 +22,7 @@ class Route {
         "gwapi.account.mapchests": "/gwapi/account/mapchests",
         "gwapi.account.masteries": "/gwapi/account/masteries",
         "gwapi.account.masterypoints": "/gwapi/account/masterypoints",
+        "gwapi.account.materials": "/gwapi/account/materials",
     }
 
     constructor() {

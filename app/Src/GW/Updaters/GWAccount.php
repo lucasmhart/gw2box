@@ -21,6 +21,7 @@ use App\Models\GWAccount_mailcarriers;
 use App\Models\GWAccount_mapchests;
 use App\Models\GWAccount_masteries;
 use App\Models\GWAccount_masterypoints;
+use App\Models\GWAccount_materials;
 use App\Src\GW\Helpers\GWObject;
 use App\Src\GW\Helpers\GWRequest;
 use Exception;
@@ -419,5 +420,28 @@ class GWAccount
         );
 
         GWUpdaters::updateAccountUpdater($user->account->id, 'mastery_points');
+    }
+
+    public static function updateMaterials($user)
+    {
+        $response = self::get($user, '/materials');
+
+        $materials = [];
+        foreach ($response as $item) {
+            $materials[] = [
+                'gw_account_id' => $user->account->id,
+                'gw_id' => $item->id,
+                'category' => $item->category,
+                'count' => $item->count,
+                'binding' => isset($item->binding) ? $item->binding : '',
+            ];
+        }
+        GWAccount_materials::upsert(
+            $materials,
+            ['gw_account_id', 'gw_id'],
+            ['category', 'count', 'binding']
+        );
+
+        GWUpdaters::updateAccountUpdater($user->account->id, 'materials');
     }
 }
