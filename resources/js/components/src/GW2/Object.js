@@ -67,6 +67,8 @@ class Object {
             Object.requestUpdate('gwapi.account.masterypoints');
         } else if (Object.get().account.materials.is_updatable === true) {
             Object.requestUpdate('gwapi.account.materials');
+        } else if (Object.get().account.minis.is_updatable === true) {
+            Object.requestUpdate('gwapi.account.minis');
         } else {
             bus.setIsObjectUpdating(false);
             Object.printDebug("End sync");

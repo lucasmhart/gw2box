@@ -23,6 +23,7 @@ class Route {
         "gwapi.account.masteries": "/gwapi/account/masteries",
         "gwapi.account.masterypoints": "/gwapi/account/masterypoints",
         "gwapi.account.materials": "/gwapi/account/materials",
+        "gwapi.account.minis": "/gwapi/account/minis",
     }
 
     constructor() {

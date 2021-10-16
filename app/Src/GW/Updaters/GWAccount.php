@@ -22,6 +22,7 @@ use App\Models\GWAccount_mapchests;
 use App\Models\GWAccount_masteries;
 use App\Models\GWAccount_masterypoints;
 use App\Models\GWAccount_materials;
+use App\Models\GWAccount_minis;
 use App\Src\GW\Helpers\GWObject;
 use App\Src\GW\Helpers\GWRequest;
 use Exception;
@@ -443,5 +444,17 @@ class GWAccount
         );
 
         GWUpdaters::updateAccountUpdater($user->account->id, 'materials');
+    }
+
+    public static function updateMinis($user)
+    {
+        $response = self::get($user, '/minis');
+
+        GWAccount_minis::updateOrCreate(
+            ['gw_account_id' => $user->account->id],
+            ['gw_ids' => json_encode($response)]
+        );
+
+        GWUpdaters::updateAccountUpdater($user->account->id, 'minis');
     }
 }

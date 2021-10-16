@@ -51,5 +51,6 @@ Route::prefix('gwapi')->name('gwapi.')->middleware(['auth'])->group(function () 
         Route::get('/masteries', [GWAccountController::class, 'masteries'])->name('masteries');
         Route::get('/masterypoints', [GWAccountController::class, 'masterypoints'])->name('masterypoints');
         Route::get('/materials', [GWAccountController::class, 'materials'])->name('materials');
+        Route::get('/minis', [GWAccountController::class, 'minis'])->name('minis');
     });
 });

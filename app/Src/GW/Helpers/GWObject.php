@@ -20,6 +20,7 @@ use App\Models\GWAccount_mapchests;
 use App\Models\GWAccount_masteries;
 use App\Models\GWAccount_masterypoints;
 use App\Models\GWAccount_materials;
+use App\Models\GWAccount_minis;
 use App\Models\User;
 use Carbon\Carbon;
 use stdClass;
@@ -133,8 +134,12 @@ class GWObject
                 'is_updatable' => $this->isUpdatable($account->updates, 'mastery_points')
             ];
             $account->materials = [
-                'item' => $this->getAccountMaterials($account),
+                'items' => $this->getAccountMaterials($account),
                 'is_updatable' => $this->isUpdatable($account->updates, 'materials')
+            ];
+            $account->minis = [
+                'items' => $this->getAccountMinis($account),
+                'is_updatable' => $this->isUpdatable($account->updates, 'minis')
             ];
         }
 
@@ -338,5 +343,16 @@ class GWObject
     private function getAccountMaterials($account)
     {
         return GWAccount_materials::where('gw_account_id', $account->id)->get();
+    }
+
+    private function getAccountMinis($account)
+    {
+        $minis = GWAccount_minis::where('gw_account_id', $account->id)->first();
+
+        if (!$minis) {
+            return [];
+        }
+
+        return json_decode($minis->gw_ids);
     }
 }

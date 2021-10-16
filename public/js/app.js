@@ -2957,6 +2957,8 @@ var _Object = /*#__PURE__*/function () {
         _Object.requestUpdate('gwapi.account.masterypoints');
       } else if (_Object.get().account.materials.is_updatable === true) {
         _Object.requestUpdate('gwapi.account.materials');
+      } else if (_Object.get().account.minis.is_updatable === true) {
+        _Object.requestUpdate('gwapi.account.minis');
       } else {
         _bus_js__WEBPACK_IMPORTED_MODULE_2__["default"].setIsObjectUpdating(false);
 
@@ -3117,7 +3119,8 @@ _defineProperty(Route, "routes", {
   "gwapi.account.mapchests": "/gwapi/account/mapchests",
   "gwapi.account.masteries": "/gwapi/account/masteries",
   "gwapi.account.masterypoints": "/gwapi/account/masterypoints",
-  "gwapi.account.materials": "/gwapi/account/materials"
+  "gwapi.account.materials": "/gwapi/account/materials",
+  "gwapi.account.minis": "/gwapi/account/minis"
 });
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (Route);
