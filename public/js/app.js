@@ -2921,7 +2921,7 @@ var _Object = /*#__PURE__*/function () {
         return;
       }
 
-      if (_Object.get().account.is_updatable === true) {
+      if (!_Object.get().account || _Object.get().account.is_updatable === true) {
         _Object.requestUpdate('gwapi.account');
       } else if (_Object.get().account.achievs.is_updatable === true) {
         _Object.requestUpdate('gwapi.account.achievements');

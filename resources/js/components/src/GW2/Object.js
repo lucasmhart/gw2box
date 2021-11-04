@@ -31,7 +31,7 @@ class Object {
             return;
         }
 
-        if (Object.get().account.is_updatable === true) {
+        if (!Object.get().account || Object.get().account.is_updatable === true) {
             Object.requestUpdate('gwapi.account');
         } else if (Object.get().account.achievs.is_updatable === true) {
             Object.requestUpdate('gwapi.account.achievements');
