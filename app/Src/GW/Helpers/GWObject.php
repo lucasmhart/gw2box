@@ -21,6 +21,9 @@ use App\Models\GWAccount_masteries;
 use App\Models\GWAccount_masterypoints;
 use App\Models\GWAccount_materials;
 use App\Models\GWAccount_minis;
+use App\Models\GWAccount_mount_skins;
+use App\Models\GWAccount_mount_types;
+use App\Models\GWAccount_novelties;
 use App\Models\User;
 use Carbon\Carbon;
 use stdClass;
@@ -140,6 +143,18 @@ class GWObject
             $account->minis = [
                 'items' => $this->getAccountMinis($account),
                 'is_updatable' => $this->isUpdatable($account->updates, 'minis')
+            ];
+            $account->mount_skins = [
+                'items' => $this->getAccountMountSkins($account),
+                'is_updatable' => $this->isUpdatable($account->updates, 'mounts_skins')
+            ];
+            $account->mount_types = [
+                'items' => $this->getAccountMountTypes($account),
+                'is_updatable' => $this->isUpdatable($account->updates, 'mounts_types')
+            ];
+            $account->novelties = [
+                'items' => $this->getAccountNovelties($account),
+                'is_updatable' => $this->isUpdatable($account->updates, 'novelties')
             ];
         }
 
@@ -354,5 +369,38 @@ class GWObject
         }
 
         return json_decode($minis->gw_ids);
+    }
+
+    private function getAccountMountSkins($account)
+    {
+        $items = GWAccount_mount_skins::where('gw_account_id', $account->id)->first();
+
+        if (!$items) {
+            return [];
+        }
+
+        return json_decode($items->gw_ids);
+    }
+
+    private function getAccountMountTypes($account)
+    {
+        $items = GWAccount_mount_types::where('gw_account_id', $account->id)->first();
+
+        if (!$items) {
+            return [];
+        }
+
+        return json_decode($items->gw_ids);
+    }
+
+    private function getAccountNovelties($account)
+    {
+        $items = GWAccount_novelties::where('gw_account_id', $account->id)->first();
+
+        if (!$items) {
+            return [];
+        }
+
+        return json_decode($items->gw_ids);
     }
 }

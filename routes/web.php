@@ -52,5 +52,8 @@ Route::prefix('gwapi')->name('gwapi.')->middleware(['auth'])->group(function () 
         Route::get('/masterypoints', [GWAccountController::class, 'masterypoints'])->name('masterypoints');
         Route::get('/materials', [GWAccountController::class, 'materials'])->name('materials');
         Route::get('/minis', [GWAccountController::class, 'minis'])->name('minis');
+        Route::get('/mount_skins', [GWAccountController::class, 'mountSkins'])->name('mount_skins');
+        Route::get('/mount_types', [GWAccountController::class, 'mountTypes'])->name('mount_types');
+        Route::get('/novelties', [GWAccountController::class, 'novelties'])->name('novelties');
     });
 });

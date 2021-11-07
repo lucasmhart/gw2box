@@ -23,6 +23,9 @@ use App\Models\GWAccount_masteries;
 use App\Models\GWAccount_masterypoints;
 use App\Models\GWAccount_materials;
 use App\Models\GWAccount_minis;
+use App\Models\GWAccount_mount_skins;
+use App\Models\GWAccount_mount_types;
+use App\Models\GWAccount_novelties;
 use App\Src\GW\Helpers\GWObject;
 use App\Src\GW\Helpers\GWRequest;
 use Exception;
@@ -456,5 +459,41 @@ class GWAccount
         );
 
         GWUpdaters::updateAccountUpdater($user->account->id, 'minis');
+    }
+
+    public static function updateMountSkins($user)
+    {
+        $response = self::get($user, '/mounts/skins');
+
+        GWAccount_mount_skins::updateOrCreate(
+            ['gw_account_id' => $user->account->id],
+            ['gw_ids' => json_encode($response)]
+        );
+
+        GWUpdaters::updateAccountUpdater($user->account->id, 'mounts_skins');
+    }
+
+    public static function updateMountTypes($user)
+    {
+        $response = self::get($user, '/mounts/types');
+
+        GWAccount_mount_types::updateOrCreate(
+            ['gw_account_id' => $user->account->id],
+            ['gw_ids' => json_encode($response)]
+        );
+
+        GWUpdaters::updateAccountUpdater($user->account->id, 'mounts_types');
+    }
+
+    public static function updateNovelties($user)
+    {
+        $response = self::get($user, '/novelties');
+
+        GWAccount_novelties::updateOrCreate(
+            ['gw_account_id' => $user->account->id],
+            ['gw_ids' => json_encode($response)]
+        );
+
+        GWUpdaters::updateAccountUpdater($user->account->id, 'novelties');
     }
 }

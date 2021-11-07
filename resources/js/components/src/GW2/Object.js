@@ -69,6 +69,12 @@ class Object {
             Object.requestUpdate('gwapi.account.materials');
         } else if (Object.get().account.minis.is_updatable === true) {
             Object.requestUpdate('gwapi.account.minis');
+        } else if (Object.get().account.mount_skins.is_updatable === true) {
+            Object.requestUpdate('gwapi.account.mount_skins');
+        } else if (Object.get().account.mount_types.is_updatable === true) {
+            Object.requestUpdate('gwapi.account.mount_types');
+        } else if (Object.get().account.novelties.is_updatable === true) {
+            Object.requestUpdate('gwapi.account.novelties');
         } else {
             bus.setIsObjectUpdating(false);
             Object.printDebug("End sync");

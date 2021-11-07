@@ -148,6 +148,27 @@ class AccountController extends Controller
         return $this->getObjectResponse();
     }
 
+    public function mountSkins()
+    {
+        GWAccount::updateMountSkins(Auth::user());
+
+        return $this->getObjectResponse();
+    }
+
+    public function mountTypes()
+    {
+        GWAccount::updateMountTypes(Auth::user());
+
+        return $this->getObjectResponse();
+    }
+
+    public function novelties()
+    {
+        GWAccount::updateNovelties(Auth::user());
+
+        return $this->getObjectResponse();
+    }
+
     private function getObjectResponse()
     {
         $gwObject = (new GWObject(Auth::user()))->getObjectJson();

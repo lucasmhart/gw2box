@@ -24,6 +24,9 @@ class Route {
         "gwapi.account.masterypoints": "/gwapi/account/masterypoints",
         "gwapi.account.materials": "/gwapi/account/materials",
         "gwapi.account.minis": "/gwapi/account/minis",
+        "gwapi.account.mount_skins": "/gwapi/account/mount_skins",
+        "gwapi.account.mount_types": "/gwapi/account/mount_types",
+        "gwapi.account.novelties": "/gwapi/account/novelties",
     }
 
     constructor() {

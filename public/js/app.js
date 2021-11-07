@@ -2959,6 +2959,12 @@ var _Object = /*#__PURE__*/function () {
         _Object.requestUpdate('gwapi.account.materials');
       } else if (_Object.get().account.minis.is_updatable === true) {
         _Object.requestUpdate('gwapi.account.minis');
+      } else if (_Object.get().account.mount_skins.is_updatable === true) {
+        _Object.requestUpdate('gwapi.account.mount_skins');
+      } else if (_Object.get().account.mount_types.is_updatable === true) {
+        _Object.requestUpdate('gwapi.account.mount_types');
+      } else if (_Object.get().account.novelties.is_updatable === true) {
+        _Object.requestUpdate('gwapi.account.novelties');
       } else {
         _bus_js__WEBPACK_IMPORTED_MODULE_2__["default"].setIsObjectUpdating(false);
 
@@ -3120,7 +3126,10 @@ _defineProperty(Route, "routes", {
   "gwapi.account.masteries": "/gwapi/account/masteries",
   "gwapi.account.masterypoints": "/gwapi/account/masterypoints",
   "gwapi.account.materials": "/gwapi/account/materials",
-  "gwapi.account.minis": "/gwapi/account/minis"
+  "gwapi.account.minis": "/gwapi/account/minis",
+  "gwapi.account.mount_skins": "/gwapi/account/mount_skins",
+  "gwapi.account.mount_types": "/gwapi/account/mount_types",
+  "gwapi.account.novelties": "/gwapi/account/novelties"
 });
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (Route);

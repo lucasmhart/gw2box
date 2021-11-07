@@ -37,7 +37,6 @@ class CreateGWAccountUpdatesTable extends Migration
             $table->dateTime('mastery_points')->nullable();
             $table->dateTime('materials')->nullable();
             $table->dateTime('minis')->nullable();
-            $table->dateTime('mounts')->nullable();
             $table->dateTime('mounts_skins')->nullable();
             $table->dateTime('mounts_types')->nullable();
             $table->dateTime('novelties')->nullable();
