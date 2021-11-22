@@ -2921,6 +2921,9 @@ var _Object = /*#__PURE__*/function () {
         return;
       }
 
+      console.log(_Object.get().account.pvp_heroes.is_updatable);
+      console.log(_Object.get().account.pvp_heroes.is_updatable === true);
+
       if (!_Object.get().account || _Object.get().account.is_updatable === true) {
         _Object.requestUpdate('gwapi.account');
       } else if (_Object.get().account.achievs.is_updatable === true) {
@@ -2965,6 +2968,10 @@ var _Object = /*#__PURE__*/function () {
         _Object.requestUpdate('gwapi.account.mount_types');
       } else if (_Object.get().account.novelties.is_updatable === true) {
         _Object.requestUpdate('gwapi.account.novelties');
+      } else if (_Object.get().account.outfits.is_updatable === true) {
+        _Object.requestUpdate('gwapi.account.outfits');
+      } else if (_Object.get().account.pvp_heroes.is_updatable === true) {
+        _Object.requestUpdate('gwapi.account.pvp_heroes');
       } else {
         _bus_js__WEBPACK_IMPORTED_MODULE_2__["default"].setIsObjectUpdating(false);
 
@@ -3129,7 +3136,9 @@ _defineProperty(Route, "routes", {
   "gwapi.account.minis": "/gwapi/account/minis",
   "gwapi.account.mount_skins": "/gwapi/account/mount_skins",
   "gwapi.account.mount_types": "/gwapi/account/mount_types",
-  "gwapi.account.novelties": "/gwapi/account/novelties"
+  "gwapi.account.novelties": "/gwapi/account/novelties",
+  "gwapi.account.outfits": "/gwapi/account/outfits",
+  "gwapi.account.pvp_heroes": "/gwapi/account/pvp_heroes"
 });
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (Route);

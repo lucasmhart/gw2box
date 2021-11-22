@@ -27,6 +27,8 @@ class Route {
         "gwapi.account.mount_skins": "/gwapi/account/mount_skins",
         "gwapi.account.mount_types": "/gwapi/account/mount_types",
         "gwapi.account.novelties": "/gwapi/account/novelties",
+        "gwapi.account.outfits": "/gwapi/account/outfits",
+        "gwapi.account.pvp_heroes": "/gwapi/account/pvp_heroes",
     }
 
     constructor() {

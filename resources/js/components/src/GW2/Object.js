@@ -75,6 +75,10 @@ class Object {
             Object.requestUpdate('gwapi.account.mount_types');
         } else if (Object.get().account.novelties.is_updatable === true) {
             Object.requestUpdate('gwapi.account.novelties');
+        } else if (Object.get().account.outfits.is_updatable === true) {
+            Object.requestUpdate('gwapi.account.outfits');
+        } else if (Object.get().account.pvp_heroes.is_updatable === true) {
+            Object.requestUpdate('gwapi.account.pvp_heroes');
         } else {
             bus.setIsObjectUpdating(false);
             Object.printDebug("End sync");

@@ -55,5 +55,7 @@ Route::prefix('gwapi')->name('gwapi.')->middleware(['auth'])->group(function () 
         Route::get('/mount_skins', [GWAccountController::class, 'mountSkins'])->name('mount_skins');
         Route::get('/mount_types', [GWAccountController::class, 'mountTypes'])->name('mount_types');
         Route::get('/novelties', [GWAccountController::class, 'novelties'])->name('novelties');
+        Route::get('/outfits', [GWAccountController::class, 'outfits'])->name('outfits');
+        Route::get('/pvp_heroes', [GWAccountController::class, 'pvpHeroes'])->name('pvp_heroes');
     });
 });

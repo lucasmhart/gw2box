@@ -169,6 +169,20 @@ class AccountController extends Controller
         return $this->getObjectResponse();
     }
 
+    public function outfits()
+    {
+        GWAccount::updateOutfits(Auth::user());
+
+        return $this->getObjectResponse();
+    }
+
+    public function pvpHeroes()
+    {
+        GWAccount::updatePvpHeroes(Auth::user());
+
+        return $this->getObjectResponse();
+    }
+
     private function getObjectResponse()
     {
         $gwObject = (new GWObject(Auth::user()))->getObjectJson();

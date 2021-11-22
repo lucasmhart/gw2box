@@ -24,6 +24,8 @@ use App\Models\GWAccount_minis;
 use App\Models\GWAccount_mount_skins;
 use App\Models\GWAccount_mount_types;
 use App\Models\GWAccount_novelties;
+use App\Models\GWAccount_outfits;
+use App\Models\GWAccount_pvp_heroes;
 use App\Models\User;
 use Carbon\Carbon;
 use stdClass;
@@ -155,6 +157,14 @@ class GWObject
             $account->novelties = [
                 'items' => $this->getAccountNovelties($account),
                 'is_updatable' => $this->isUpdatable($account->updates, 'novelties')
+            ];
+            $account->outfits = [
+                'items' => $this->getAccountOutfits($account),
+                'is_updatable' => $this->isUpdatable($account->updates, 'outfits')
+            ];
+            $account->pvp_heroes = [
+                'items' => $this->getAccountPvpHeroes($account),
+                'is_updatable' => $this->isUpdatable($account->updates, 'pvp_heroes')
             ];
         }
 
@@ -396,6 +406,28 @@ class GWObject
     private function getAccountNovelties($account)
     {
         $items = GWAccount_novelties::where('gw_account_id', $account->id)->first();
+
+        if (!$items) {
+            return [];
+        }
+
+        return json_decode($items->gw_ids);
+    }
+
+    private function getAccountOutfits($account)
+    {
+        $items = GWAccount_outfits::where('gw_account_id', $account->id)->first();
+
+        if (!$items) {
+            return [];
+        }
+
+        return json_decode($items->gw_ids);
+    }
+
+    private function getAccountPvpHeroes($account)
+    {
+        $items = GWAccount_pvp_heroes::where('gw_account_id', $account->id)->first();
 
         if (!$items) {
             return [];

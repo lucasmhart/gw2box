@@ -41,7 +41,7 @@ class CreateGWAccountUpdatesTable extends Migration
             $table->dateTime('mounts_types')->nullable();
             $table->dateTime('novelties')->nullable();
             $table->dateTime('outfits')->nullable();
-            $table->dateTime('pvp_herores')->nullable();
+            $table->dateTime('pvp_heroes')->nullable();
             $table->dateTime('raids')->nullable();
             $table->dateTime('recipes')->nullable();
             $table->dateTime('skins')->nullable();

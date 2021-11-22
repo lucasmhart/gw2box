@@ -26,6 +26,8 @@ use App\Models\GWAccount_minis;
 use App\Models\GWAccount_mount_skins;
 use App\Models\GWAccount_mount_types;
 use App\Models\GWAccount_novelties;
+use App\Models\GWAccount_outfits;
+use App\Models\GWAccount_pvp_heroes;
 use App\Src\GW\Helpers\GWObject;
 use App\Src\GW\Helpers\GWRequest;
 use Exception;
@@ -495,5 +497,29 @@ class GWAccount
         );
 
         GWUpdaters::updateAccountUpdater($user->account->id, 'novelties');
+    }
+
+    public static function updateOutfits($user)
+    {
+        $response = self::get($user, '/outfits');
+
+        GWAccount_outfits::updateOrCreate(
+            ['gw_account_id' => $user->account->id],
+            ['gw_ids' => json_encode($response)]
+        );
+
+        GWUpdaters::updateAccountUpdater($user->account->id, 'outfits');
+    }
+
+    public static function updatePvpHeroes($user)
+    {
+        $response = self::get($user, '/pvp/heroes');
+
+        GWAccount_pvp_heroes::updateOrCreate(
+            ['gw_account_id' => $user->account->id],
+            ['gw_ids' => json_encode($response)]
+        );
+
+        GWUpdaters::updateAccountUpdater($user->account->id, 'pvp_heroes');
     }
 }
