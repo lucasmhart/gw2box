@@ -15,7 +15,8 @@ import GWObject from "@/src/GW2/Object";
 
 import Swal from 'sweetalert2'
 
-import 'sweetalert2/src/sweetalert2.scss'
+// import 'sweetalert2/src/sweetalert2.scss'
+import '@sweetalert2/themes/dark/dark.scss';
 
 /**
  * The following block of code may be used to automatically register your

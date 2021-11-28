@@ -25,6 +25,8 @@
         "vue-template-compiler": "^2.6.12"
     },
     "dependencies": {
+        "@sweetalert2/theme-dark": "^5.0.8",
+        "@sweetalert2/themes": "^5.0.8",
         "sweetalert2": "^11.1.5"
     }
 }

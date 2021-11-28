@@ -57,5 +57,6 @@ Route::prefix('gwapi')->name('gwapi.')->middleware(['auth'])->group(function () 
         Route::get('/novelties', [GWAccountController::class, 'novelties'])->name('novelties');
         Route::get('/outfits', [GWAccountController::class, 'outfits'])->name('outfits');
         Route::get('/pvp_heroes', [GWAccountController::class, 'pvpHeroes'])->name('pvp_heroes');
+        Route::get('/raids', [GWAccountController::class, 'raids'])->name('raids');
     });
 });

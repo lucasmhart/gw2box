@@ -29,6 +29,7 @@ class Route {
         "gwapi.account.novelties": "/gwapi/account/novelties",
         "gwapi.account.outfits": "/gwapi/account/outfits",
         "gwapi.account.pvp_heroes": "/gwapi/account/pvp_heroes",
+        "gwapi.account.raids": "/gwapi/account/raids",
     }
 
     constructor() {

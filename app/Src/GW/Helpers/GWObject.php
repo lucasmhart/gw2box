@@ -26,6 +26,7 @@ use App\Models\GWAccount_mount_types;
 use App\Models\GWAccount_novelties;
 use App\Models\GWAccount_outfits;
 use App\Models\GWAccount_pvp_heroes;
+use App\Models\GWAccount_raids;
 use App\Models\User;
 use Carbon\Carbon;
 use stdClass;
@@ -165,6 +166,10 @@ class GWObject
             $account->pvp_heroes = [
                 'items' => $this->getAccountPvpHeroes($account),
                 'is_updatable' => $this->isUpdatable($account->updates, 'pvp_heroes')
+            ];
+            $account->raids = [
+                'items' => $this->getAccountRaids($account),
+                'is_updatable' => $this->isUpdatable($account->updates, 'raids')
             ];
         }
 
@@ -428,6 +433,17 @@ class GWObject
     private function getAccountPvpHeroes($account)
     {
         $items = GWAccount_pvp_heroes::where('gw_account_id', $account->id)->first();
+
+        if (!$items) {
+            return [];
+        }
+
+        return json_decode($items->gw_ids);
+    }
+
+    private function getAccountRaids($account)
+    {
+        $items = GWAccount_raids::where('gw_account_id', $account->id)->first();
 
         if (!$items) {
             return [];

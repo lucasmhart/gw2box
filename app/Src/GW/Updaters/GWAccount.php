@@ -28,6 +28,7 @@ use App\Models\GWAccount_mount_types;
 use App\Models\GWAccount_novelties;
 use App\Models\GWAccount_outfits;
 use App\Models\GWAccount_pvp_heroes;
+use App\Models\GWAccount_raids;
 use App\Src\GW\Helpers\GWObject;
 use App\Src\GW\Helpers\GWRequest;
 use Exception;
@@ -521,5 +522,17 @@ class GWAccount
         );
 
         GWUpdaters::updateAccountUpdater($user->account->id, 'pvp_heroes');
+    }
+
+    public static function updateRaids($user)
+    {
+        $response = self::get($user, '/raids');
+
+        GWAccount_raids::updateOrCreate(
+            ['gw_account_id' => $user->account->id],
+            ['gw_ids' => json_encode($response)]
+        );
+
+        GWUpdaters::updateAccountUpdater($user->account->id, 'raids');
     }
 }
